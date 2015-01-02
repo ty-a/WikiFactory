@@ -22,7 +22,7 @@
 </table>
 <ul><?php $WIEbase = "http://community.wikia.com/wiki/Special:WhereIsExtension?var=" . $variable->cv_id; ?>
 	<li>
-		Where is... <a href="<? echo $WIEbase ?>&val=2">Any value</a><?php
+		Where is... <a href="<?php echo $WIEbase ?>&val=2">Any value</a><?php
 		if( $variable->cv_variable_type == 'boolean' ) {
 			print " &middot; <a href='{$WIEbase}&val=0'>True</a>";
 			print " &middot; <a href='{$WIEbase}&val=1'>False</a>";

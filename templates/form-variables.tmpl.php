@@ -22,11 +22,11 @@
                     <option value="0" selected="selected">
                         All groups
                     </option>
-                    <? foreach ($groups as $key => $value): ?>
+                    <?php foreach ($groups as $key => $value): ?>
                     <option value="<?php echo $key ?>">
                         <?php echo $value ?>
                     </option>
-                    <? endforeach ?>
+                    <?php endforeach ?>
                 </select>
 				<br />
 				<label for="wf-only-withstring">variable name contains</label>

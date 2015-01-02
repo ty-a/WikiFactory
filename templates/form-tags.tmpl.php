@@ -32,7 +32,7 @@ $.loadJQueryAutocomplete(function() {
 <?php
 	if( is_array( $tags ) ):
 		global $wgBlankImgUrl;
-		$icon_class = ( F::app()->checkSkin( 'oasis' ) ) ? 'remove' /*oasis*/ : 'delete' /*monaco*/;
+		$icon_class = 'delete' /*monaco*/;
 		$remove_icon = '<img src="'.$wgBlankImgUrl.'" class="sprite '.$icon_class.'" alt="remove" />';
 		foreach( $tags as $id => $tag ):
 			echo ' ' . Xml::tags('a',

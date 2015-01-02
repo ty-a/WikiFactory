@@ -74,8 +74,10 @@ CREATE TABLE `city_list_log` (
   `cl_user_id` int(5) unsigned default NULL,
   `cl_type` int(5) NOT NULL,
   `cl_text` mediumtext NOT NULL,
+  `cl_var_id` smallint(5) unsigned NOT NULL auto_increment,
   KEY `cl_city_id_idx` (`cl_city_id`),
   KEY `cl_type_idx` (`cl_type`),
+  KEY `cl_var_id_idx` (`cl_var_id`),
   CONSTRAINT `city_list_log_ibfk_1` FOREIGN KEY (`cl_city_id`) REFERENCES `city_list` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

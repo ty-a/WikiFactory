@@ -205,7 +205,7 @@ class CloseWikiPage extends SpecialPage {
 			Wikia::log( __METHOD__, "check domain {$this->mRedirect}" );
 			$city_id = WikiFactory::DomainToID( trim( $this->mRedirect ) );
 			if( !$city_id ) {
-				Wikia::log( __METHOD__, "domain doesn't exist" );
+				//Wikia::log( __METHOD__, "domain doesn't exist" );
 				$valid = false;
 				$this->mErrors[] = $this->mRedirect;
 			} else {
@@ -291,16 +291,16 @@ class CloseWikiPage extends SpecialPage {
 		if ( !empty($this->mWikis) ) {
 			$output = Xml::openElement( 'ul', null );
 			foreach( $this->mWikis as $wiki ) {
-				Wikia::log( __METHOD__, "Closing: {$wiki->city_title} (url: {$wiki->city_url}) (id: {$wiki->city_id}) (dbname: {$wiki->city_dbname}) " );
+				//Wikia::log( __METHOD__, "Closing: {$wiki->city_title} (url: {$wiki->city_url}) (id: {$wiki->city_id}) (dbname: {$wiki->city_dbname}) " );
 				#-- move to archive
 				$message = wfMsgExt( 'closewiki-wiki-closed', array('parse'), $wiki->city_title, $wiki->city_url );
 				if ( !empty($newWiki) ) {
-					Wikia::log( __METHOD__,  " ... and redirecting to: {$this->mRedirect} (id: {$newWiki})" );
+					//Wikia::log( __METHOD__,  " ... and redirecting to: {$this->mRedirect} (id: {$newWiki})" );
 					$this->moveOldDomains( $wiki->city_id, $newWiki );
 
 					#-- add "old" prefix to main domain and set is as primary
 					$prefixedDomain = $this->prefixMainDomain( $wiki->city_id );
-					Wikia::log( __METHOD__,  " ... primary domain set to: {$prefixedDomain}" );
+					//Wikia::log( __METHOD__,  " ... primary domain set to: {$prefixedDomain}" );
 
 					#-- set new city ID in city_domains (except for just created "old" domain)
 					$isMoved = WikiFactory::redirectDomains( $wiki->city_id, $newWiki, ( !empty( $prefixedDomain ) ? array( $prefixedDomain ) : array() ) );
@@ -395,6 +395,7 @@ class CloseWikiPage extends SpecialPage {
 
 		$bShowDumps = false;
 		$aFiles = array();
+		/*
 
 		if ( $this->closedWiki->city_lastdump_timestamp >= DumpsOnDemand::S3_MIGRATION ) {
 			$aFiles = array(
@@ -408,11 +409,12 @@ class CloseWikiPage extends SpecialPage {
 
 			$bShowDumps = true;
 		}
+		*/
 
 		$this->mTmpl->reset();
 		$this->mTmpl->set_vars( array(
 			"wgExtensionsPath" => $wgExtensionsPath,
-			"aDumps" => $aFiles,
+			//"aDumps" => $aFiles, // Don't have Dumps figured out, not showing 
 			"bShowDumps" => $bShowDumps,
 			"isDisabled" => (($this->closedWiki->city_flags == 0) && ($this->closedWiki->city_public == 0))
 		) );

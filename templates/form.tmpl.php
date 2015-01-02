@@ -539,7 +539,7 @@ $(function() {
 			</tr>
 		</table>
 		</td>
-		<td><button class="wikia-button" id="wf-clear-cache"><?php echo wfMsg("wikifactory_removevariable") ?></button><?
+		<td><button class="wikia-button" id="wf-clear-cache"><?php echo wfMsg("wikifactory_removevariable") ?></button><?php
 				?><div id="wk-busy-cache" style="margin-left:1em; display: none;">
 					<img src="<?= $wgStylePath ?>/common/images/ajax.gif" width="16" height="16" alt="Wait..." border="0" />
 				</div></td>

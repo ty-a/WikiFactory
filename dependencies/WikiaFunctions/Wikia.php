@@ -70,5 +70,22 @@ class Wikia {
     {
         return Xml::element("span", array( "style"=> "color: #fe0000; font-weight: bold;"), $what);
     }
-}
+
+    /**
+     * successmsg
+     *
+     * return span for success message
+     *
+     * @access public
+     * @static
+     * @author eloy@wikia
+     *
+     * @param string $what message for user
+     *
+     * @return string composed HTML/XML code
+     */
+    static public function successmsg($what)
+    {
+        return Xml::element("span", array( "style"=> "color: darkgreen; font-weight: bold;"), $what);
+    }
 }

@@ -14,6 +14,8 @@ $wgExtensionCredits['other'][] = array(
 	"author" => "[http://www.wikia.com/wiki/User:Eloy.wikia Krzysztof Krzyżaniak (eloy)]"
 );
 
+$wgAutoloadClasses['GlobalTitle'] = $IP . '/extensions/WikiaFunctions/GlobalTitle.php';
+
 if ( ! function_exists( "wfUnserializeHandler" ) ) {
 	/**
 	 * wfUnserializeErrorHandler
@@ -100,7 +102,8 @@ class WikiFactory {
 	const CACHEDIR      = "/tmp/wikifactory/wikis";
 
 	// Community Central's city_id in wikicities.city_list.
-	const COMMUNITY_CENTRAL = 177;
+	const COMMUNITY_CENTRAL = 1;
+	const CENTRAL_WIKI_ID = 1; // To convert over, but ensure it doesn't break
 
 	const PREFETCH_WIKI_METADATA = 1;
 	const PREFETCH_VARIABLES = 2;
@@ -2726,7 +2729,7 @@ class WikiFactory {
 			$tables[] = "city_variables AS cv{$i}";
 
 			$where[] = "cv1.cv_city_id = cv{$i}.cv_city_id";
-			$where["cv{$i}.cv_variable_id"] = self::getVarByName($key, self::COMMUNITY_CENTRAL)->cv_variable_id;
+			$where["cv{$i}.cv_variable_id"] = self::getVarByName($key, self::CENTRAL_WIKI)->cv_variable_id;
 			$where["cv{$i}.cv_value"] = @serialize($val);
 		}
 

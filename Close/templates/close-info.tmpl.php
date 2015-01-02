@@ -8,7 +8,7 @@
 	<div><img src="<?=$wgExtensionsPath?>/wikia/WikiFactory/Close/images/Installation_animation.jpg" width="700" height="142" /></div>
 <?php if ( !empty($isDisabled) ) { ?>
 	<div id="close-title"><?= wfMessage( 'disabled-wiki-info' )->escaped() ?></div>
-<? } else { ?>
+<?php } else { ?>
 	<div id="close-title"><?= wfMessage( 'closed-wiki-info' )->escaped() ?></div>
 	<div id="close-info">
 <?php
@@ -20,7 +20,7 @@ if ( $bShowDumps ) {
 }
 ?>
 	</div>
-<? } ?>
+<?php } ?>
 </div>
 <br /><br /><br />
 <table width="90%" align="center" id="closed-urls">
