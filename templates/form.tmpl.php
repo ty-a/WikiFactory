@@ -82,6 +82,26 @@ $Factory.Variable = {};
 var ajaxpath = wgServer + wgScript;
 $Factory.city_id = <?php echo $wiki->city_id ?>;
 
+$Factory.VariableCallback = {
+    success: function( aData ) {
+    	$("#" + aData["div-name"]).html(aData["div-body"]);
+        //--- now add listeners and events
+		$.loadJQueryAutocomplete(function() {
+			$('#tagName').autocomplete({
+				serviceUrl: wgServer+wgScript+'?action=ajax&rs=WikiFactoryTags::axQuery',
+				minChars:3,
+				deferRequestBy: 0
+			});
+		});
+        $Factory.Busy(0);
+    },
+    failure: function( aData ) {
+        $().log( "failure in VariableCallback" );
+		$().log( aData["responseText"] );
+        $Factory.Busy(0);
+    }
+};
+
 $Factory.ReplaceCallback = {
     success: function( Data ) {
         $( "#" + Data["div-name"] ).html(Data["div-body"]);
@@ -423,6 +443,45 @@ $Factory.Variable.remove_submit = function ( confirm, form ) {
 	return false;
 };
 
+$Factory.Variable.tagCheck = function ( submitType ) {
+	$( '#wf-tag-parse' ).empty();
+	var tagName = $('#tagName').val();
+	if ( tagName == '' ) {
+		if( submitType == 'remove' ) {
+			$Factory.Variable.remove_submit(true);
+		}
+		else {
+			$Factory.Variable.submit();
+		}
+	}
+	else {
+		$.ajax({
+	 	  	type:"POST",
+	 	  	dataType: "json",
+	 	  	url: ajaxpath,
+	 	  	data: "action=ajax&rs=axWFactoryTagCheck&tagName="+tagName,
+			success: function( oResponse ) {
+				var data = oResponse;
+				if( data.wikiCount == 0 ) {
+					$( '#wf-tag-parse' ).get("<span style=\"color: red; font-weight: bold;\">tag doesn't exists</span>");
+				}
+				else {
+					if( !window.confirm('This change will apply to all "'+tagName+'" tagged wikis ('+data.wikiCount+' in total). Are you really, really sure?') ) {
+						return false;
+					}
+					if( submitType == 'remove' ) {
+						$Factory.Variable.remove_submit(false);
+					}
+					else {
+						$Factory.Variable.submit();
+					}
+				}
+			},
+			timeout: 50000
+		});
+	}
+};
+
 $Factory.Variable.close_submit = function (opt) {
 	$Factory.Busy(1);
 	var oForm = $('#wf-close-form');
@@ -490,6 +549,7 @@ $(function() {
 	<div id="wiki-factory-panel">
 		<?php
 			$subVariables = in_array($tab, array("variables", "ezsharedupload", "eznamespace", 'compare') );
+			$subTags = in_array($tab, array('tags', 'masstags', 'findtags') );
 		?>
 		<ul class="tabs" id="wiki-factory-tabs">
 			<li <?php echo ( $tab === "info" ) ? 'class="selected"' : 'class="inactive"' ?> >
@@ -500,6 +560,9 @@ $(function() {
 			</li>
 			<li <?php echo ( $tab === "domains" ) ? 'class="selected"' : 'class="inactive"' ?> >
 				<?php echo WikiFactoryPage::showTab( "domains", $tab, $wiki->city_id ); ?>
+			</li>
+			<li <?php echo ( $subTags ) ? 'class="selected"' : 'class="inactive"' ?> >
+				<?php echo WikiFactoryPage::showTab( "tags", ( ($subTags)?'tags':$tab ), $wiki->city_id ); ?>
 			</li>
 			<li <?php echo ( $tab === "clog" ) ? 'class="selected"' : 'class="inactive"' ?> >
 				<?php echo WikiFactoryPage::showTab( "clog", $tab, $wiki->city_id ); ?>
@@ -526,6 +589,21 @@ $(function() {
 			</li>
 			<li <?php echo ( $tab === "eznamespace" ) ? 'class="selected"' : 'class="inactive"' ?> >
 				<?php echo WikiFactoryPage::showTab( "eznamespace", $tab, $wiki->city_id ); ?>
+			</li>
+		</ul>
+<?php
+	}
+	if( $subTags ) {
+?>
+		<ul class="tabs second-row" id="wiki-factory-tabs-second">
+			<li <?php echo ( $tab === "tags" ) ? 'class="selected"' : 'class="inactive"' ?> >
+				<?php echo WikiFactoryPage::showTab( "tags", $tab, $wiki->city_id, 'tags2' ); ?>
+			</li>
+			<li <?php echo ( $tab === "masstags" ) ? 'class="selected"' : 'class="inactive"' ?> >
+				<?php echo WikiFactoryPage::showTab( "masstags", $tab, $wiki->city_id ); ?>
+			</li>
+			<li <?php echo ( $tab === "findtags" ) ? 'class="selected"' : 'class="inactive"' ?> >
+				<?php echo WikiFactoryPage::showTab( "findtags", $tab, $wiki->city_id ); ?>
 			</li>
 		</ul>
 <?php
@@ -562,6 +640,19 @@ $(function() {
 		# LOGS
 			case "clog":
 				include_once( "form-clog.tmpl.php" );
+				break;
+				
+		# TAGS
+			case "tags":
+				include_once( "form-tags.tmpl.php" );
+				break;
+
+			case "masstags":
+				include_once( "form-tags-mass.tmpl.php" );
+				break;
+
+			case "findtags":
+				include_once( "form-tags-find.tmpl.php" );
 				break;
 
 		# GOOGLE
