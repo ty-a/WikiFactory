@@ -86,11 +86,11 @@ $Factory.VariableCallback = {
     success: function( aData ) {
     	$("#" + aData["div-name"]).html(aData["div-body"]);
         //--- now add listeners and events
-		$.loadJQueryAutocomplete(function() {
+		mw.loader.using( 'jquery.ui.autocomplete', function() {
 			$('#tagName').autocomplete({
-				serviceUrl: wgServer+wgScript+'?action=ajax&rs=WikiFactoryTags::axQuery',
-				minChars:3,
-				deferRequestBy: 0
+				source: wgServer+wgScript+'?action=ajax&rs=WikiFactoryTags::axQuery',
+				minLength:3,
+				delay: 0
 			});
 		});
         $Factory.Busy(0);
