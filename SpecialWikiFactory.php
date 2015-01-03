@@ -62,3 +62,10 @@ $wgSpecialPages['WikiFactory'] = 'WikiFactoryPage';
 
 $wgAutoloadClasses[ "CloseWikiPage" ] = $dir. "/Close/SpecialCloseWiki_body.php";
 $wgSpecialPages[ "CloseWiki" ] = "CloseWikiPage";
+
+$wgResourceModules['ext.WikiFactory.Metrics'] = array(
+	'scripts' => 'Metrics/js/jquery.dataTables.min.js',
+	//'styles' => '',
+	
+	'localBasePath' => __DIR__
+);

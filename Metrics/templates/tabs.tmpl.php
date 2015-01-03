@@ -1,4 +1,4 @@
-<?
+<?php
 $tabs = array(
 	'main' 			=> array('url' => sprintf( "%s/main", $mTitle->getLocalUrl() ), 'text' => wfMsg('search') ),
 	'monthly' 		=> array('url' => sprintf( "%s/monthly", $mTitle->getLocalUrl() ), 'text' => wfMsg('awc-metrics-hubs') ),
@@ -7,8 +7,8 @@ $tabs = array(
 ?>
 <div id="wfm-tabs" class="wikia-tabs">
 	<ul id="wfm_action_tabs">
-<? foreach ( $tabs as $id => $values ) : ?>		
+<?php foreach ( $tabs as $id => $values ) : ?>		
 		<li id="wfm_tab_<?=$id?>" class="<?= ($id == $mAction) ? 'selected' : ''?>"><a rel="nofollow" href="<?=$values['url']?>"><?=$values['text']?></a></li>
-<? endforeach ?>
+<?php endforeach ?>
 	</ul>
 </div>

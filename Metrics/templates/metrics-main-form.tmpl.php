@@ -30,7 +30,7 @@ function __makeParamValue() {
 	return target;
 }
 
-$(document).ready(function() {
+mw.loader.using( 'ext.WikiFactory.Metrics', function() {
 	var baseurl = wgScript + "?action=ajax&rs=axAWCMetrics";
 				
 	var oTable = $('#wfm-table').dataTable( {
@@ -190,7 +190,7 @@ $(document).ready(function() {
 <p class='error'><?=$error?></p>
 <div>
 <form method="post" action="<?=$action?>" id="wfm-form">
-<? $found = 0; $i = 0; $isSelected = false; ?>	
+<?php $found = 0; $i = 0; $isSelected = false; ?>	
 <!-- options -->
 	<div>
 	<fieldset class="awc-metrics-fieldset">
@@ -200,10 +200,10 @@ $(document).ready(function() {
 				<span style="vertical-align:middle"><?=wfMsg('awc-metrics-select')?></span>
 				<span style="vertical-align:middle">
 					<select name="awc-metrics-created" id="awc-metrics-created">
-			<? foreach ($mPeriods as $value => $text) : ?>
-			<? $selected = ""; $selected = $obj->setDefaultOption($params, 'created', $mDefPeriod, $value); ?> 
+			<?php foreach ($mPeriods as $value => $text) : ?>
+			<?php $selected = ""; $selected = $obj->setDefaultOption($params, 'created', $mDefPeriod, $value); ?> 
 					<option <?=$selected?> value="<?=$value?>"><?= wfMsg('awc-metrics-' . $text) ?></option>
-			<? endforeach ?>
+			<?php endforeach ?>
 					</select>
 				</span>
 				<span style="vertical-align:middle"><?=wfMsg('awc-metrics-by-language')?></span>
@@ -230,10 +230,10 @@ $(document).ready(function() {
 				<span style="vertical-align:middle"><?=wfMsg('awc-metrics-category')?></span>
 				<span style="vertical-align:middle">
 					<select name="awc-metrics-category-hub" id="awc-metrics-category-hub"><option value=""> </option>
-			<? foreach ($aCategories as $id => $catName) : ?>
+			<?php foreach ($aCategories as $id => $catName) : ?>
 <?php 				$selected = $obj->setDefaultOption($params, 'cat', '', $id); ?> 
 					<option <?= $selected ?> value="<?=$id?>"><?=$catName['name']?></option>
-			<? endforeach ?>
+			<?php endforeach ?>
 					</select>
 				</span>
 			</td></tr>
@@ -264,7 +264,7 @@ $(document).ready(function() {
 				<span style="vertical-align:middle"><?=wfMsg('awc-metrics-by-email')?></span>
 				<span style="vertical-align:middle"><input name="awc-metrics-email" id="awc-metrics-email" size="40" value="<?=@$params['email']?>" /></span>
 			</td></tr>
-<?
+<?php
 $months = '<select name="awc-nbr-edits-days" id="awc-nbr-edits-days">';
 $months .= '<option value="1">'.wfMsg('awc-metrics-this-month').'</option>';
 for ($i = 2; $i <= 12; $i++ ) {

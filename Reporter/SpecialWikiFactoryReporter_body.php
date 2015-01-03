@@ -122,9 +122,9 @@ class WikiFactoryReporter extends SpecialPage
 				#$cv_value = 'Error. Not an array?!?';
 			}
 
-			if (preg_match('/http:\/\/([\w\.\-]+)\//', $row->city_url, $matches))
+			if (preg_match('/([\w\.\-]+)/', $row->city_url, $matches))
 			{
-				$city_url = str_ireplace('.wikia.com', '', $matches[1]);
+				$city_url = str_ireplace('.faceyspacies.com', '', $matches[1]);
 			} else
 			{
 				$city_url = 'Error. Unknown wiki?!?';
@@ -147,7 +147,7 @@ class WikiFactoryReporter extends SpecialPage
 		unset($values);
 
 		global $wgCityId;
-		if($wgCityId == 177)
+		if($wgCityId == 1)
 		{
 			#we're on central (or are faking it), so link locallly
 			$WF_title =  SpecialPage::getTitleFor('WikiFactory');
@@ -156,8 +156,8 @@ class WikiFactoryReporter extends SpecialPage
 		else
 		{
 			#we're away from home, so make sure the links link back right
-			$WF_title  = GlobalTitle::newFromText('WikiFactory',      NS_SPECIAL, 177);
-			$wie_title = GlobalTitle::newFromText('WhereIsExtension', NS_SPECIAL, 177);
+			$WF_title  = GlobalTitle::newFromText('WikiFactory',      NS_SPECIAL, 1);
+			$wie_title = GlobalTitle::newFromText('WhereIsExtension', NS_SPECIAL, 1);
 		}
 
 		$wie_query = array(

@@ -108,8 +108,8 @@ class WikiMetrics {
 		$wgOut->setRobotpolicy( 'noindex,nofollow' );
 		$wgOut->setArticleRelated( false );
 
-		$wgOut->addExtensionStyle("{$wgExtensionsPath}/wikia/WikiFactory/Metrics/css/table.css");
-		$wgOut->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$wgResourceBasePath}/resources/wikia/libraries/jquery/datatables/jquery.dataTables.min.js\"></script>\n");
+		$wgOut->addExtensionStyle("{$wgExtensionsPath}/extensions/WikiFactory/Metrics/css/table.css");
+		$wgOut->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$wgExtensionsPath}/extensions/WikiFactory/Metrics/js/jquery.dataTables.min.js\"></script>\n");
 
 		/**
 		 * show form
@@ -154,8 +154,8 @@ class WikiMetrics {
 		#---
 		$this->getLangs();
 		#---
-		$hubs = WikiFactoryHub::getInstance();
-		$aCategories = $hubs->getAllCategories();
+		//$hubs = WikiFactoryHub::getInstance();
+		//$aCategories = $hubs->getAllCategories();
 
 		$params = $wgRequest->getValues();
 		if ( empty($params['from']) ) {
@@ -174,7 +174,7 @@ class WikiMetrics {
             "oCloseWikiTitle"	=> $oCloseWikiTitle,
             "aLanguages" 		=> $this->mLanguages,
 			"aTopLanguages" 	=> $this->mTopLanguages,
-			"aCategories"		=> $aCategories,
+			"aCategories"		=> array(),
 			"params"			=> $params,
 			"obj"				=> $this,
         ));
@@ -188,14 +188,14 @@ class WikiMetrics {
 		global $wgExtensionsPath, $wgRequest;
         wfProfileIn( __METHOD__ );
 		#---
-		$hubs = WikiFactoryHub::getInstance();
-		$aCategories = $hubs->getAllCategories();
+		//$hubs = WikiFactoryHub::getInstance();
+		//$aCategories = $hubs->getAllCategories();
         $oTmpl = new EasyTemplate( dirname( __FILE__ ) . "/templates/" );
         $oTmpl->set_vars( array(
 			"error"				=> $error,
             "wgContLang"		=> $wgContLang,
             "wgExtensionsPath" 	=> $wgExtensionsPath,
-			"aCategories"		=> $aCategories,
+			"aCategories"		=> array(),
 			"obj"				=> $this,
         ));
         $wgOut->addHTML( $oTmpl->render("metrics-monthly-form") );
@@ -208,14 +208,14 @@ class WikiMetrics {
 		global $wgExtensionsPath, $wgRequest;
         wfProfileIn( __METHOD__ );
 		#---
-		$hubs = WikiFactoryHub::getInstance();
-		$aCategories = $hubs->getAllCategories();
+		//$hubs = WikiFactoryHub::getInstance();
+		//$aCategories = $hubs->getAllCategories();
         $oTmpl = new EasyTemplate( dirname( __FILE__ ) . "/templates/" );
         $oTmpl->set_vars( array(
 			"error"				=> $error,
             "wgContLang"		=> $wgContLang,
             "wgExtensionsPath" 	=> $wgExtensionsPath,
-			"aCategories"		=> $aCategories,
+			"aCategories"		=> array(),
 			"obj"				=> $this,
         ));
         $wgOut->addHTML( $oTmpl->render("metrics-daily-form") );
@@ -581,8 +581,9 @@ class WikiMetrics {
 			$what = "IFNULL(date_format(cl.city_created, '%Y-%m-%d'), '0000-00-00')";
 		}
 
-		$hubs = WikiFactoryHub::getInstance();
-		$aCategories = $hubs->getAllCategories();
+		//$hubs = WikiFactoryHub::getInstance();
+		//$aCategories = $hubs->getAllCategories();
+		$aCategories = array();
 
 		$AWCMetrics = array();
 		$AWCCitiesCount = 0;

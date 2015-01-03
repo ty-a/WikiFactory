@@ -6,7 +6,7 @@ function deletechecked() {
 }
 
 mw.loader.using( 'jquery.ui.autocomplete', function() {
-	$('.wftagautocomplete').autocomplete({
+	$('#wftagsearchinput').autocomplete({
 		source: wgServer+wgScript+'?action=ajax&rs=WikiFactoryTags::axQuery',
 		minLength:3,
 		delay: 0

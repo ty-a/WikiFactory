@@ -17,5 +17,5 @@ $wgExtensionCredits['specialpage'][] = array
 
 $wgExtensionMessagesFiles['WikiFactoryReporter'] = dirname(__FILE__) . '/SpecialWikiFactoryReporter.i18n.php';
 
-extAddSpecialPage(dirname(__FILE__) . '/SpecialWikiFactoryReporter_body.php', 'WikiFactoryReporter', 'WikiFactoryReporter');
-
+$wgAutoloadClasses['WikiFactoryReporter'] = __DIR__ . '/SpecialWikiFactoryReporter_body.php';
+$wgSpecialPages['WikiFactoryReporter'] = 'WikiFactoryReporter';

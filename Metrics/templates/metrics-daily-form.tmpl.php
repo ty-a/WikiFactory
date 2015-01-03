@@ -18,7 +18,7 @@ div#sidebar { display: none !important; }
 </style>
 <script type="text/javascript" charset="utf-8">
 
-$(document).ready(function() {
+mw.loader.using( 'ext.WikiFactory.Metrics', function() {
 	var baseurl = wgScript + "?action=ajax&rs=axAWCMetricsCategory";
 	var cnt = 0;
 	var oTable = $('#wfm-table').dataTable( {
@@ -133,15 +133,15 @@ $(document).ready(function() {
 
 <p class='error'><?=$error?></p>
 <div>
-<? $found = 0; $i = 0; $isSelected = false; ?>	
+<?php $found = 0; $i = 0; $isSelected = false; ?>	
 <!-- options -->
 	<table cellpadding="0" cellspacing="0" border="0" class="TablePager" id="wfm-table">
 	<thead>
 		<tr>
 			<th width="10%">Month</th>
-<? if ( count($aCategories) > 0 ) foreach ($aCategories as $id => $catName) : ?>
+<?php if ( count($aCategories) > 0 ) foreach ($aCategories as $id => $catName) : ?>
 			<th width="<?=intval(80/count($aCategories))?>"><?=$catName['name']?></option>
-<? endforeach ?>
+<?php endforeach ?>
 			<th width="10%"><?=wfMsg('awc-metrics-sum-day')?></th>
 		</tr>
 	</thead>
@@ -153,9 +153,9 @@ $(document).ready(function() {
 	<tfoot>
 		<tr>
 			<th width="10%">Month</th>
-<? if ( count($aCategories) > 0 ) foreach ($aCategories as $id => $catName) : ?>
+<?php if ( count($aCategories) > 0 ) foreach ($aCategories as $id => $catName) : ?>
 			<th width="<?=intval(80/count($aCategories))?>"><?=$catName['name']?></option>
-<? endforeach ?>
+<?php endforeach ?>
 			<th width="10%"><?=wfMsg('awc-metrics-sum-day')?></th>
 		</tr>
 	</tfoot>
