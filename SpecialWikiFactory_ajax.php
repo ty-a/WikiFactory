@@ -603,10 +603,10 @@ function axWFactorySaveVariable() {
 function axWFactoryDomainQuery() {
 	global $wgRequest;
 
-	$query = $wgRequest->getVal( "query", false );
+	$query = $wgRequest->getVal( "term", false );
 
 	$return = array(
-		"query"       => $query,
+		"term"       => $query,
 		"suggestions" => array(),
 		"data"        => array()
 	);
@@ -651,8 +651,8 @@ function axWFactoryDomainQuery() {
 		$return[ "suggestions" ] = array_merge( $exact[ "suggestions" ], $match[ "suggestions" ] );
 		$return[ "data" ] = array_merge( $exact[ "data" ], $match[ "suggestions" ] );
 	}
-
-	return json_encode( $return );
+	// $.ui.autocomplete expects it to be returned as if there is just suggestions, leaving the rest for debug though
+	return json_encode( $return["suggestions"] );
 }
 
 /**
@@ -825,7 +825,9 @@ function axAWCMetrics() {
 /**
  * axAWCMetricsCategory
  *
- * Ajax call, return # of Wikis per hubs per month
+ * Ajax call, return # of Wikis per tag per month
+ *
+ * @TODO Make this use tags
  *
  * @access public
  * @author moli@wikia
@@ -839,7 +841,7 @@ function axAWCMetricsCategory() {
 		return;
 	}
 
-	if ( !in_array('staff', $wgUser->getGroups()) ) {
+	if ( !$wgUser->isAllowed( 'wikifactory' ) ) {
 		return "";
 	}
 

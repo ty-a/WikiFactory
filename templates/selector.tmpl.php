@@ -40,7 +40,7 @@ table.TablePager { border: 1px solid gray;}
 		You can <a href="<?php echo $title->getFullUrl() ?>/add.variable"><strong>add a new variable</strong></a> to be managed by WikiFactory
 	</li>
 	<li>
-		You can start typing begining of domain name into input field below
+		You can start typing the beginning of domain name into input field below
 	</li>
 	<li>
 		You can use filters in the <a href="<?php echo $title->getFullUrl() ?>/metrics"><strong>metrics interface</strong></a>
@@ -50,17 +50,18 @@ table.TablePager { border: 1px solid gray;}
 <br />
 <script type="text/javascript">
 /*<![CDATA[*/
-	$.loadJQueryAutocomplete(function() {
+	mw.loader.using( 'jquery.ui.autocomplete', function() {
 		$('#citydomain').autocomplete({
-			serviceUrl: wgServer + wgScript + '?action=ajax&rs=axWFactoryDomainQuery',
+			source: wgServer + wgScript + '?action=ajax&rs=axWFactoryDomainQuery',
+			// Does not work with this version, will figure out eventually
 			onSelect: function(v, d) {
 				// redirect to Special:WikiFactory/<city id>
 				window.location.href = wgArticlePath.replace(/\$1/, wgPageName + '/' + d);
 			},
 			appendTo: '#WikiFactoryDomainSelector',
-			deferRequestBy: 0,
+			delay: 0,
 			maxHeight: 300,
-			minChars: 3,
+			minLength: 3,
 			width: 350
 		});
 	});

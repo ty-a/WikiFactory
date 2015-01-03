@@ -39,6 +39,22 @@ class CloseWikiPage extends SpecialPage {
 	public function  __construct() {
 		parent::__construct( "CloseWiki", "wikifactory", false );
 	}
+	
+	/**
+	 * getGroupName
+	 *
+	 * Overrides SpecialPage::getGroupName since $wgSpecialPageGroups is deprecated  
+	 * 
+	 * @access public
+	 * 
+	 * @param none
+	 *
+	 * @return string The special page group
+	 *
+	 */
+	 public function getGroupName() {
+		return 'wiki';
+	}
 
 	/**
 	 * Main entry point

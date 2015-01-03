@@ -28,9 +28,6 @@ $dir = dirname( __FILE__ );
  */
 $wgExtensionMessagesFiles["WikiFactory"] =  $dir . '/SpecialWikiFactory.i18n.php';
 
-// hubs
-$wgAutoloadClasses['WikiFactoryHub'] = $dir . '/Hubs/WikiFactoryHub.php';
-
 /**
  * helper file
  */
@@ -61,10 +58,7 @@ $wgGroupPermissions['util']['wikifactory'] = true;
 //$wgGroupPermissions['staff']['wikifactorymetrics'] = true;
 
 $wgAutoloadClasses['WikiFactoryPage'] = __DIR__ . '/SpecialWikiFactory_body.php';
-$wgSpecialPages['WikiFactory'] = 'WikiFactoryPage'; //__DIR__ . '/SpecialWikiFactory_body.php';
-//extAddSpecialPage( dirname(__FILE__) . '/SpecialWikiFactory_body.php', 'WikiFactory', 'WikiFactoryPage' );
-$wgSpecialPageGroups['WikiFactory'] = 'wikia';
+$wgSpecialPages['WikiFactory'] = 'WikiFactoryPage';
 
 $wgAutoloadClasses[ "CloseWikiPage" ] = $dir. "/Close/SpecialCloseWiki_body.php";
 $wgSpecialPages[ "CloseWiki" ] = "CloseWikiPage";
-$wgSpecialPageGroups[ "CloseWiki" ] = 'wikia';
