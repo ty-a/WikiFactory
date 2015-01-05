@@ -694,6 +694,7 @@ class WikiFactoryLoader {
 						$GLOBALS['wgPreWikiFactoryValues'][$key] = $tValue;
 					}
 					$GLOBALS[$key] = $tValue;
+					//echo( $key . " = " . $tValue . "\n");
 				}
 				catch( Exception $e ) {
 					#--- so far do nothing

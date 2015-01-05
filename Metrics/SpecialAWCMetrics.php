@@ -108,8 +108,8 @@ class WikiMetrics {
 		$wgOut->setRobotpolicy( 'noindex,nofollow' );
 		$wgOut->setArticleRelated( false );
 
-		$wgOut->addExtensionStyle("{$wgExtensionsPath}/extensions/WikiFactory/Metrics/css/table.css");
-		$wgOut->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$wgExtensionsPath}/extensions/WikiFactory/Metrics/js/jquery.dataTables.min.js\"></script>\n");
+		$wgOut->addExtensionStyle("{$IP}/extensions/WikiFactory/Metrics/css/table.css");
+		$wgOut->addScript("<script type=\"{$wgJsMimeType}\" src=\"{$IP}/extensions/WikiFactory/Metrics/js/jquery.dataTables.min.js\"></script>\n");
 
 		/**
 		 * show form
