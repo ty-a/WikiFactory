@@ -97,7 +97,7 @@ class WikiFactory {
 	const FLAG_ADOPT_MAIL_SECOND     = 256; //used by AutomaticWikiAdoption
 	const FLAG_PROTECTED             = 512; //wiki cannot be closed
 
-	const db            = "wikifactory"; // @see $wgExternalSharedDB
+	const db            = "wikifactory"; // @see $wgWikiFactoryDB
 	const DOMAINCACHE   = "/tmp/wikifactory/domains.ser";
 	const CACHEDIR      = "/tmp/wikifactory/wikis";
 
@@ -163,9 +163,9 @@ class WikiFactory {
 	 * @return string - table name with database
 	 */
 	static public function table( $table, $column = false ) {
-		global $wgExternalSharedDB;
+		global $wgWikiFactoryDB;
 
-		$database = !empty( $wgExternalSharedDB ) ? $wgExternalSharedDB : self::db;
+		$database = !empty( $wgWikiFactoryDB ) ? $wgWikiFactoryDB : self::db;
 		if ( $column ) {
 			return sprintf("`%s`.`%s`.`%s`", $database, $table, $column );
 		}
@@ -189,9 +189,9 @@ class WikiFactory {
 	 * @return Database object
 	 */
 	static public function db( $db ) {
-		global $wgExternalSharedDB;
+		global $wgWikiFactoryDB;
 
-		return wfGetDB( $db, array(), $wgExternalSharedDB );
+		return wfGetDB( $db, array(), $wgWikiFactoryDB );
 	}
 
 	/**
@@ -3005,8 +3005,8 @@ class WikiFactory {
 	 */
 
 	static public function getListOfWikisWithVar( $varId, $type, $selectedCond ,$val, $likeVal = '', $offset = null, $limit = null ) {
-		global $wgExternalSharedDB;
-		$dbr = wfGetDB(DB_SLAVE, array(), $wgExternalSharedDB);
+		global $wgWikiFactoryDB;
+		$dbr = wfGetDB(DB_SLAVE, array(), $wgWikiFactoryDB);
 
 		$aWikis = array();
 		$selectedVal = serialize($val);
@@ -3070,8 +3070,8 @@ class WikiFactory {
 	 */
 
 	static public function getCountOfWikisWithVar( $varId, $type, $selectedCond ,$val, $likeVal = '' ) {
-		global $wgExternalSharedDB;
-		$dbr = wfGetDB( DB_SLAVE, array(), $wgExternalSharedDB );
+		global $wgWikiFactoryDB;
+		$dbr = wfGetDB( DB_SLAVE, array(), $wgWikiFactoryDB );
 
 		$selectedVal = serialize( $val );
 		$aTables = array( 'city_variables', 'city_list' );

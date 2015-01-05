@@ -22,10 +22,10 @@ SELECT city_id FROM city_list WHERE city_dbname = "metawiki";
 Go ahead and add 
 "
 // Wikifactory configuration
-$wgExternalSharedDB = "wikifactory";
+$wgWikiFactoryDB = "wikifactory";
 $wgWikiFactoryDomain = "faceyspacies.com";
 $wgWikiFactoryCacheType = CACHE_MEMCACHED;
-$wgNotAValidWikia = "http://meta.faceyspacies.com/wiki/Invalid_Wiki";
+$wgNotAValidWiki = "http://meta.faceyspacies.com/wiki/Invalid_Wiki";
 
 require_once( $IP . "/extensions/WikiFactory/SpecialWikiFactory.php" );
 " to your LocalSettings/CommonSettings.php file for your main wiki. This is the extension that will allow you to manage WikiFactory. 

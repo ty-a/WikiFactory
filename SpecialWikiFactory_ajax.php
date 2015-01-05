@@ -270,7 +270,7 @@ function axWFactorySubmitChangeVariable() {
 }
 
 function axWFactoryDomainCRUD($type="add") {
-    global $wgRequest, $wgUser, $wgExternalSharedDB, $wgOut;
+    global $wgRequest, $wgUser, $wgWikiFactoryDB, $wgOut;
     $sDomain = $wgRequest->getVal("domain");
     $city_id = $wgRequest->getVal("cityid");
     $reason  = $wgRequest->getVal("reason");
@@ -283,7 +283,7 @@ function axWFactoryDomainCRUD($type="add") {
         $wgOut->readOnlyPage(); #--- later change to something reasonable
         return;
     }
-    $dbw = wfGetDB( DB_MASTER, array(), $wgExternalSharedDB );
+    $dbw = wfGetDB( DB_MASTER, array(), $wgWikiFactoryDB );
     $aDomains = array();
     $aResponse = array();
     $sInfo = "";

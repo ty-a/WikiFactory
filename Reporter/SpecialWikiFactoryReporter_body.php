@@ -63,13 +63,13 @@ class WikiFactoryReporter extends SpecialPage
 
 	function getCustomSettings()
 	{
-		global $wgExternalSharedDB;
+		global $wgWikiFactoryDB;
 		global $wgWikiFactoryDomain;
 		$city_list = 'city_list';
 		$cv        = 'city_variables';
 		$cv_pool   = 'city_variables_pool';
 
-		$dbr = wfGetDB(DB_SLAVE, array(), $wgExternalSharedDB);
+		$dbr = wfGetDB(DB_SLAVE, array(), $wgWikiFactoryDB);
 		$res = $dbr->select(
 			array($city_list, $cv, $cv_pool),
 			array('cv_value', 'city_url', 'city_id'),
