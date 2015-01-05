@@ -1121,17 +1121,18 @@ class WikiFactory {
 	 */
 	public static function getCurrentStagingHost( $dbName='', $default='', $host = null) {
 		global $wgStagingList;
+		global $wgWikiFactoryDomain;
 
 		if ( $host === null ) {
 			$host = gethostname();
 		}
 
 		if ( preg_match( '/^(demo-[a-z0-9]+)-[s|r][0-9]+$/i', $host, $m ) ) {
-			return $m[ 1 ] . '.' . ( $dbName ? $dbName : 'www' ) . '.faceyspacies.com';
+			return $m[ 1 ] . '.' . ( $dbName ? $dbName : 'www' ) . '.' . $wgWikiFactoryDomain;
 		}
 
 		if ( in_array( $host, $wgStagingList ) ) {
-			return $host . '.' . ( $dbName ? $dbName : 'www' ) . '.faceyspacies.com';
+			return $host . '.' . ( $dbName ? $dbName : 'www' ) . '.' . $wgWikiFactoryDomain;
 		}
 
 		return $default;
@@ -1152,6 +1153,7 @@ class WikiFactory {
 	 * @return string	url pointing to local env
 	 */
 	static public function getLocalEnvURL( $url ) {
+		global $wgWikiFactoryDomain;
 		// first - normalize URL
 		$regexp = '/^http:\/\/([^\/]+)\/?(.*)?$/';
 		if ( preg_match( $regexp, $url, $groups ) === 0 ) {
@@ -1181,25 +1183,25 @@ class WikiFactory {
 			}
 		}
 
-		$server = str_replace( '.faceyspacies.com', '', $server );
+		$server = str_replace( '.' . $wgWikiFactoryDomain, '', $server );
 		
 
 		// put the address back into shape and return
 		if ( empty($_SERVER['SERVER_NAME']) ) {
 			// maintenance script
 
-			return 'http://' . $server.'.faceyspacies.com' . $address;
+			return 'http://' . $server . '.' . $wgWikiFactoryDomain . $address;
 		}
 
 		$servername = $_SERVER['SERVER_NAME'];
 		if ( strpos( $servername, 'preview.' ) !== false ) {
-			return 'http://preview.' . $server . '.faceyspacies.com'.$address;
+			return 'http://preview.' . $server . '.' . $wgWikiFactoryDomain . $address;
 		}
 		if ( strpos( $servername, 'verify.' ) !== false ) {
-			return 'http://verify.' . $server . '.faceyspacies.com'.$address;
+			return 'http://verify.' . $server . '.' . $wgWikiFactoryDomain . $address;
 		}
 		if ( strpos( $servername, 'sandbox-s1.' ) !== false ) {
-			return 'http://sandbox-s1.' . $server . '.faceyspacies.com'.$address;
+			return 'http://sandbox-s1.' . $server . '.' . $wgWikiFactoryDomain . $address;
 		}
 
 		// by default return original address

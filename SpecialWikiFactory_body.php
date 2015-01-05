@@ -129,6 +129,7 @@ class WikiFactoryPage extends SpecialPage {
 	 */
 	private function getWikiData( $subpage ) {
 		global $wgRequest;
+		global $wgWikiFactoryDomain;
 
 		$domain	= $wgRequest->getVal( "wpCityDomain", null );
 		$cityid	= $wgRequest->getVal( "cityid", null );
@@ -179,7 +180,7 @@ class WikiFactoryPage extends SpecialPage {
 					 */
 					if( sizeof(explode(".", $domain )) <= 2 && strlen( $domain ) > 0) {
 						$this->mDomain = $domain;
-						$domain = $domain.".faceyspacies.com";
+						$domain = $domain . "." . $wgWikiFactoryDomain;
 					} else {
 						list( $code, $subdomain ) = explode(".", $domain, 2 );
 						$exists = 0;
@@ -1055,10 +1056,11 @@ class ChangeLogPager extends TablePager {
 	 * @return string: formated table field
 	 */
 	function formatValue( $field, $value ) {
+		global $wgWikiFactoryDomain;
 		switch ($field) {
 			case "city_url":
 				preg_match("/http:\/\/([\w\.\-]+)\//", $value, $matches );
-				$sRetval = str_ireplace(".faceyspacies.com", "", $matches[1]);
+				$sRetval = str_ireplace("." . $wgWikiFactoryDomain, "", $matches[1]);
 				return $sRetval;
 				break;
 

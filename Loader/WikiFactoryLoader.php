@@ -68,7 +68,7 @@ class WikiFactoryLoader {
 	 */
 	public function  __construct( $id = null, $server_name = false ) {
 		global $wgDBname, $wgDevelEnvironment, $wgDevelDomains;
-		global $wgWikiFactoryDomains, $wgWikiFactoryDB;
+		global $wgWikiFactoryDomains, $wgWikiFactoryDB, $wgWikiFactoryDomain;
 
 		$this->mCommandLine = false;
 
@@ -154,9 +154,9 @@ class WikiFactoryLoader {
 				 */
 				$name = preg_replace( "/^www\./", "", $this->mServerName );
 				$pattern = "/{$domain}$/";
-				if( $domain !== "faceyspacies.com" && preg_match( $pattern, $name ) ) {
+				if( $domain !== $wgWikiFactoryDomain && preg_match( $pattern, $name ) ) {
 					$this->mOldServerName = $this->mServerName;
-					$this->mServerName = str_replace( $domain, "faceyspacies.com", $name );
+					$this->mServerName = str_replace( $domain, $wgWikiFactoryDomain, $name );
 					$this->mAlternativeDomainUsed = true;
 					break;
 				}
@@ -469,11 +469,12 @@ class WikiFactoryLoader {
 		if( empty( $this->mIsWikiaActive ) || $this->mIsWikiaActive == -2 /* spam */ ) {
 			if( ! $this->mCommandLine ) {
 				global $wgNotAValidWikia;
+				global $wgWikiFactoryCentralWiki;
 				if( $this->mCityDB ) {
 					$database = strtolower( $this->mCityDB );
 					$redirect = sprintf(
 						"http://%s/wiki/Special:CloseWiki/information/%s",
-						"meta.faceyspacies.com",
+						$wgWikiFactoryCentralWiki,
 						$database
 					);
 				}

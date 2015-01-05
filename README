@@ -23,6 +23,7 @@ Go ahead and add
 "
 // Wikifactory configuration
 $wgExternalSharedDB = "wikifactory";
+$wgWikiFactoryDomain = "faceyspacies.com";
 $wgWikiFactoryCacheType = CACHE_MEMCACHED;
 $wgNotAValidWikia = "http://meta.faceyspacies.com/wiki/Invalid_Wiki";
 

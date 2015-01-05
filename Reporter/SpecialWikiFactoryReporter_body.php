@@ -64,6 +64,7 @@ class WikiFactoryReporter extends SpecialPage
 	function getCustomSettings()
 	{
 		global $wgExternalSharedDB;
+		global $wgWikiFactoryDomain;
 		$city_list = 'city_list';
 		$cv        = 'city_variables';
 		$cv_pool   = 'city_variables_pool';
@@ -124,7 +125,7 @@ class WikiFactoryReporter extends SpecialPage
 
 			if (preg_match('/([\w\.\-]+)/', $row->city_url, $matches))
 			{
-				$city_url = str_ireplace('.faceyspacies.com', '', $matches[1]);
+				$city_url = str_ireplace('.' . $wgWikiFactoryDomain, '', $matches[1]);
 			} else
 			{
 				$city_url = 'Error. Unknown wiki?!?';
