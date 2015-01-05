@@ -20,7 +20,7 @@ Go ahead and add
 "
 // Wikifactory configuration
 $wgWikiFactoryDB = "wikifactory";
-$wgWikiFactoryDomain = "faceyspacies.com";
+$wgWikiFactoryDomain = "faceyspacies.com"; // replace with your domain name
 $wgWikiFactoryCacheType = CACHE_MEMCACHED;
 $wgNotAValidWiki = "http://meta.faceyspacies.com/wiki/Invalid_Wiki";
 
