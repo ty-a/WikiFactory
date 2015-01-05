@@ -45,6 +45,12 @@ require_once( $dir . '/Tags/WikiFactoryTags.php' );
 require_once( $dir . '/Tags/WikiFactoryTagsQuery.php' );
 
 /**
+ * hooks
+ */
+$wgAutoloadClasses['WikiFactoryHooks'] = $dir . '/WikiFactoryHooks.php';
+$wgHooks['ResourceLoaderGetConfigVars'][] = 'WikiFactoryHooks::onResourceLoaderGetConfigVars';
+
+/**
  * permissions
  */
 $wgAvailableRights[] = 'wikifactory';
@@ -55,3 +61,22 @@ $wgSpecialPages['WikiFactory'] = 'WikiFactoryPage';
 
 $wgAutoloadClasses[ "CloseWikiPage" ] = $dir. "/Close/SpecialCloseWiki_body.php";
 $wgSpecialPages[ "CloseWiki" ] = "CloseWikiPage";
+
+$wgResourceModules['ext.WikiFactory'] = array(
+	'scripts' => 'js/wikifactory.js',
+	'styles' => 'css/wikifactory.css',
+	
+	'messages' => array(
+		'wikifactory_removevariable',
+	),
+	
+	'dependencies' => array( 
+		'mediawiki.ui',
+		'mediawiki.ui.input',
+		'mediawiki.ui.checkbox'
+	),
+	
+	'localBasePath' => __DIR__,
+	
+	'remoteExtPath' => 'WikiFactory'
+);

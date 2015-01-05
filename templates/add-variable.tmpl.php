@@ -15,41 +15,56 @@
 	if(!isset($cv_description))
 		$cv_description = "";
 ?>
-<form action="<?php echo $title->getFullUrl() ?>/add.variable" method="post">
-	<div>
-		<input type="hidden" name="wpAction" value="addwikifactoryvar" />
-		This form is for adding a new variable to be managed using WikiFactory.<br/>
-		<br/>
-
-		Name for the variable: <input type="text" class="mw-ui-input" name="cv_name" value="<?php print $cv_name; ?>"/><br/>
-
-		Variable type: <span class="mw-ui-vform-field"><select id="cv_variable_type" name="cv_variable_type">
-		 	<?php foreach ($types as $varType): ?>
-			<option value="<?php echo $varType ?>"<?php print (($cv_variable_type==$varType)?" selected='selected'":""); ?>>
-				<?php echo $varType ?>
-			</option>
-			<?php endforeach ?>
-		</select></span><br/>
-
-		Access-level: <span class="mw-ui-vform-field"><select id="cv_access_level" name="cv_access_level">
-			<?php foreach($accesslevels as $index => $level): ?>
-			<option value="<?php echo $index ?>"<?php print (($cv_access_level==$index)?" selected='selected'":""); ?>>
-				<?php echo $level ?>
-			</option>
-			<?php endforeach ?>
-		</select></span><br/>
-
-		Pick a group for this variable: <span class="mw-ui-vform-field"><select id="wk-group-select" name="cv_variable_group">
-			<?php foreach ($groups as $key => $value): ?>
-			<option value="<?php echo $key ?>"<?php print (($cv_variable_group==$key)?" selected='selected'":""); ?>>
-				<?php echo $value ?>
-			</option>
-			<?php endforeach ?>
-		</select></span><br/>
-                Is unique: <span class="mw-ui-checkbox"><input value="1" <?php if(!empty($cv_is_unique)) { ?> checked="checked" <?php } ?> type="checkbox" id="cv_is_unique" name="cv_is_unique" /></span> <br/>
-		Description of what this variable does:<br/>
-		<textarea name="cv_description" rows="3" cols="50"><?php print $cv_description; ?></textarea><br/>
-
-		<input type="submit" name="submit" value="Create Variable" />
+<form action="<?php echo $title->getFullUrl() ?>/add.variable" method="post" class="mw-ui-vform">
+	<input type="hidden" name="wpAction" value="addwikifactoryvar" />
+	<div class="mw-ui-vform-field">
+	This form is for adding a new variable to be managed using WikiFactory.<br />
 	</div>
+	<div class="mw-ui-vform-field">
+	<input type="text" class="mw-ui-input" name="cv_name" placeholder="Variable name" value="<?php print $cv_name; ?>"/>
+	</div>
+	<div class="mw-ui-vform-field">
+	<textarea name="cv_description" class="mw-ui-input" rows="3" placeholder="Description of what the variable does" cols="50"><?php print $cv_description; ?></textarea><br/>
+	</div>
+	
+	Variable type: 
+	<div class="mw-ui-vform-field">
+	<select id="cv_variable_type" name="cv_variable_type">
+	 	<?php foreach ($types as $varType): ?>
+		<option value="<?php echo $varType ?>"<?php print (($cv_variable_type==$varType)?" selected='selected'":""); ?>>
+			<?php echo $varType ?>
+		</option>
+		<?php endforeach ?>
+	</select>
+	</div>
+	
+	Access-level:
+	<div class="mw-ui-vform-field">
+	<select id="cv_access_level" name="cv_access_level">
+		<?php foreach($accesslevels as $index => $level): ?>
+		<option value="<?php echo $index ?>"<?php print (($cv_access_level==$index)?" selected='selected'":""); ?>>
+			<?php echo $level ?>
+		</option>
+		<?php endforeach ?>
+	</select>
+	</div>
+	
+	Variable Group:
+	<div class="mw-ui-vform-field">
+	<select id="wk-group-select" name="cv_variable_group">
+		<?php foreach ($groups as $key => $value): ?>
+		<option value="<?php echo $key ?>"<?php print (($cv_variable_group==$key)?" selected='selected'":""); ?>>
+			<?php echo $value ?>
+		</option>
+		<?php endforeach ?>
+	</select>
+	</div>
+	
+    <div class="mw-ui-checkbox">
+	<input value="1" <?php if(!empty($cv_is_unique)) { ?> checked="checked" <?php } ?> type="checkbox" id="cv_is_unique" name="cv_is_unique" />
+	<label for="cv_is_unique">Variable is Unique</label>
+	</div>
+	<br />
+
+	<input type="submit" name="submit" class="mw-ui-button mw-ui-constructive" value="Create Variable" />
 </form>

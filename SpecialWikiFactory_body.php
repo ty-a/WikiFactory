@@ -80,6 +80,7 @@ class WikiFactoryPage extends SpecialPage {
 		$wgOut->setPageTitle( wfMsg('wikifactorypagetitle') );
 		$wgOut->setRobotpolicy( 'noindex,nofollow' );
 		$wgOut->setArticleRelated( false );
+		$wgOut->addModules( 'ext.WikiFactory' );
 
 		if ( strtolower($subpage) === "add.variable" ) {
 			$varOverrides = array();
