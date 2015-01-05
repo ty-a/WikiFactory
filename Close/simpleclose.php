@@ -8,7 +8,7 @@
  * @author Krzysztof Krzyżaniak <eloy@wikia-inc.com>
  */
 
-ini_set( "include_path", dirname(__FILE__)."/../../../../maintenance/" );
+ini_set( "include_path", dirname(__FILE__) . "/../../../maintenance/" );
 
 $optionsWithArgs = array( "limit" );
 
@@ -43,7 +43,7 @@ class SimpleCloseWikiMaintenance {
 		global $wgUploadDirectory, $wgDBname;
 
 		if ( !isset( $this->mOptions['wiki_id'] ) ) {
-			echo "Wiki Id is not valid";
+			echo "Wiki Id is not valid\n";
 			die( 1 );
 		}
 
@@ -66,7 +66,6 @@ class SimpleCloseWikiMaintenance {
 			$newFlags = 0;
 			$dbname   = $row->city_dbname;
 			$folder   = WikiFactory::getVarValueByName( "wgUploadDirectory", $row->city_id );
-			$cluster  = WikiFactory::getVarValueByName( "wgDBcluster", $row->city_id );
 
 			/**
 			 * safety check, if city_dbname is not unique die with message
@@ -82,9 +81,9 @@ class SimpleCloseWikiMaintenance {
 				echo "{$dbname} is not unique. Check city_list and rerun script";
 				die( 1 );
 			}
-			Wikia::log( __CLASS__, "info", "city_id={$row->city_id} city_url={$row->city_url} city_dbname={$dbname} city_flags={$row->city_flags} city_public={$row->city_public}");
+			//Wikia::log( __CLASS__, "info", "city_id={$row->city_id} city_url={$row->city_url} city_dbname={$dbname} city_flags={$row->city_flags} city_public={$row->city_public}");
 
-			Wikia::log( __CLASS__, "info", "removing folder {$folder}" );
+			//Wikia::log( __CLASS__, "info", "removing folder {$folder}" );
 			if( is_dir( $wgUploadDirectory ) ) {
 				/**
 				 * what should we use here?
@@ -111,24 +110,18 @@ class SimpleCloseWikiMaintenance {
 				),
 				__METHOD__
 			);
-			Wikia::log( __CLASS__, "info", "{$row->city_id} removed from WikiFactory tables" );
+			//Wikia::log( __CLASS__, "info", "{$row->city_id} removed from WikiFactory tables" );
 
 			/**
-			 * drop database, get db handler for proper cluster
+			 * drop database
 			 */
-			global $wgDBadminuser, $wgDBadminpassword;
-			$centralDB = empty( $cluster) ? "wikicities" : "wikicities_{$cluster}";
+			global $wgWikiFactoryDB;
 
-			/**
-			 * get connection but actually we only need info about host
-			 */
-			$local = wfGetDB( DB_MASTER, array(), $centralDB );
-			$server = $local->getLBInfo( 'host' );
-			$dbw = new DatabaseMysql( $server, $wgDBadminuser, $wgDBadminpassword, $centralDB );
+			$dbw = wfGetDB( DB_MASTER, array(), $wgWikiFactoryDB );
 			$dbw->begin();
 			$dbw->query( "DROP DATABASE `{$row->city_dbname}`");
 			$dbw->commit();
-			Wikia::log( __CLASS__, "info", "{$row->city_dbname} dropped from cluster {$cluster}" );
+			//Wikia::log( __CLASS__, "info", "{$row->city_dbname} dropped from cluster {$cluster}" );
 		}
 	}
 }
