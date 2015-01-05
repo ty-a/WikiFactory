@@ -21,32 +21,32 @@
 		This form is for adding a new variable to be managed using WikiFactory.<br/>
 		<br/>
 
-		Name for the variable: <input type="text" name="cv_name" value="<?php print $cv_name; ?>"/><br/>
+		Name for the variable: <input type="text" class="mw-ui-input" name="cv_name" value="<?php print $cv_name; ?>"/><br/>
 
-		Variable type: <select id="cv_variable_type" name="cv_variable_type">
+		Variable type: <span class="mw-ui-vform-field"><select id="cv_variable_type" name="cv_variable_type">
 		 	<?php foreach ($types as $varType): ?>
 			<option value="<?php echo $varType ?>"<?php print (($cv_variable_type==$varType)?" selected='selected'":""); ?>>
 				<?php echo $varType ?>
 			</option>
 			<?php endforeach ?>
-		</select><br/>
+		</select></span><br/>
 
-		Access-level: <select id="cv_access_level" name="cv_access_level">
+		Access-level: <span class="mw-ui-vform-field"><select id="cv_access_level" name="cv_access_level">
 			<?php foreach($accesslevels as $index => $level): ?>
 			<option value="<?php echo $index ?>"<?php print (($cv_access_level==$index)?" selected='selected'":""); ?>>
 				<?php echo $level ?>
 			</option>
 			<?php endforeach ?>
-		</select><br/>
+		</select></span><br/>
 
-		Pick a group for this variable: <select id="wk-group-select" name="cv_variable_group">
+		Pick a group for this variable: <span class="mw-ui-vform-field"><select id="wk-group-select" name="cv_variable_group">
 			<?php foreach ($groups as $key => $value): ?>
 			<option value="<?php echo $key ?>"<?php print (($cv_variable_group==$key)?" selected='selected'":""); ?>>
 				<?php echo $value ?>
 			</option>
 			<?php endforeach ?>
-		</select><br/>
-                Is unique: <input value="1" <?php if(!empty($cv_is_unique)) { ?> checked="checked" <?php } ?> type="checkbox" id="cv_is_unique" name="cv_is_unique" /> <br/>
+		</select></span><br/>
+                Is unique: <span class="mw-ui-checkbox"><input value="1" <?php if(!empty($cv_is_unique)) { ?> checked="checked" <?php } ?> type="checkbox" id="cv_is_unique" name="cv_is_unique" /></span> <br/>
 		Description of what this variable does:<br/>
 		<textarea name="cv_description" rows="3" cols="50"><?php print $cv_description; ?></textarea><br/>
 

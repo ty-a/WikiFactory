@@ -8,8 +8,8 @@ First download the code and place it in your extensions directory. Inside the do
 Second you'll need to create your WikiFactory database. There is schema for the database in the sql folder. 
 
 Now you'll need to start adding your wikis to the city_list and the city_domains tables. Example SQL queries are below
-INSERT INTO city_list (city_dbname,city_sitename,city_url,city_created,city_founding_user,city_title,city_founding_email,city_lang,city_umbrella,city_founding_ip) VALUES ('metawiki','Meta Wiki','meta.faceyspacies.com',
-'2015-01-01 03:49:28','1','Meta Wiki','tyler@faceyspacies.com','en','meta.faceyspacies.com','127.0.0.1');
+INSERT INTO city_list (city_dbname,city_sitename,city_url,city_created,city_founding_user,city_title,city_founding_email,city_lang,city_founding_ip) VALUES ('metawiki','Meta Wiki','meta.faceyspacies.com',
+'2015-01-01 03:49:28','1','Meta Wiki','tyler@faceyspacies.com','en','127.0.0.1');
 
 INSERT INTO city_domains (city_id, city_domain) VALUES (1, "meta.faceyspacies.com");
 

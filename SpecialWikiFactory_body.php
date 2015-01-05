@@ -581,12 +581,9 @@ class WikiFactoryPage extends SpecialPage {
 		foreach($this->mMassTagWikis as $dart_string)
 		{
 			if( empty($dart_string) ) { continue; }
-			$dart_parts = explode("/", $dart_string);
-			if( count($dart_parts) < 2 ) {
-				continue;
-			}
-			$db = ltrim($dart_parts[1], '_');
 
+			$db = ltrim($dart_string, '_');
+			// FIXME: This is only returning an ID to the last one
 			$wkid = WikiFactory::DBtoID( $db );
 			// $wgOut->addHTML("id={$wkid}<br/>"); #debug
 

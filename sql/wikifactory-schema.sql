@@ -3,29 +3,8 @@
 SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 
-CREATE TABLE `city_cats` (
-  `cat_id` int(9) NOT NULL auto_increment,
-  `cat_name` varchar(255) default NULL,
-  `cat_url` text,
-  `cat_short` varchar(255) DEFAULT NULL,
-  `cat_deprecated` boolean DEFAULT 0,
-  `cat_active` boolean DEFAULT 0,
-  PRIMARY KEY  (`cat_id`),
-  KEY `cat_name_idx` (`cat_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `city_verticals` (
-  `vertical_id` int(9) NOT NULL auto_increment,
-  `vertical_name` varchar(255) default NULL,
-  `vertical_url` text,
-  `vertical_short` varchar(255) DEFAULT NULL,
-  PRIMARY KEY  (`vertical_id`),
-  KEY `vertical_name_idx` (`vertical_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 CREATE TABLE `city_list` (
   `city_id` int(9) NOT NULL auto_increment,
-  `city_path` varchar(255) NOT NULL default '/dev/null',
   `city_dbname` varchar(64) NOT NULL default 'notreal',
   `city_sitename` varchar(255) NOT NULL default 'faceyspacies',
   `city_url` varchar(255) NOT NULL default 'http://meta.faceyspacies.com/',
@@ -39,8 +18,6 @@ CREATE TABLE `city_list` (
   `city_founding_email` varchar(255) default NULL,
   `city_lang` varchar(8) NOT NULL default 'en',
   `city_special_config` text,
-  `city_umbrella` varchar(255) default NULL,
-  `city_ip` varchar(256) NOT NULL default '/var/www/html',
   `city_google_analytics` varchar(100) default '',
   `city_google_search` varchar(100) default '',
   `city_google_maps` varchar(100) default '',
@@ -119,14 +96,6 @@ CREATE TABLE `city_variables` (
   KEY `cv_city_id` (`cv_city_id`),
   CONSTRAINT `city_variables_ibfk_1` FOREIGN KEY (`cv_variable_id`) REFERENCES `city_variables_pool` (`cv_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `city_variables_ibfk_2` FOREIGN KEY (`cv_city_id`) REFERENCES `city_list` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE `city_cat_mapping` (
-  `city_id` int(11) default NULL,
-  `cat_id` int(11) default NULL,
-  KEY `city_id_idx` (`city_id`),
-  KEY `cat_id_idx` (`cat_id`),
-  CONSTRAINT `city_cat_mapping_ibfk_1` FOREIGN KEY (`city_id`) REFERENCES `city_list` (`city_id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE `city_variables_groups` (

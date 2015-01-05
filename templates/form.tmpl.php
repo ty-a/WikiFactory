@@ -538,7 +538,7 @@ $(function() {
 		<ul>
 			<?php  #hide domain in upper area when on domain tab, so people dont get confused by non-updating data
 				if( $tab !== "domains" ): ?><li>
-				Wiki domain: <strong><a href="<?php echo $wiki->city_url ?>"><?php echo $wiki->city_url ?></a></strong>
+				Wiki domain: <strong><a href="http://<?php echo $wiki->city_url ?>"><?php echo $wiki->city_url ?></a></strong>
 				<sup><a href="<?php echo "{$wikiFactoryUrl}/{$wiki->city_id}"; ?>/domains">edit</a></sup>
 			</li><?php endif; ?>
 			<li>

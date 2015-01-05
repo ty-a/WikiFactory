@@ -22,7 +22,7 @@ mw.loader.using( 'jquery.ui.autocomplete', function() {
 			<td class="mw-input"><input type="text" name="wpMassTag" id="wftaginput" value="" /></td>
 		</tr>
 		<tr>
-			<td class="mw-label" style="width: 100px;">DART rows</td>
+			<td class="mw-label" style="width: 100px;">DB names</td>
 			<td class="mw-input"><textarea rows="10" cols="40" name="wfMassTagWikis" id="wfMassTagWikis" /></textarea></td>
 		</tr>
 		<tr>

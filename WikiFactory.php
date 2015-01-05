@@ -274,15 +274,15 @@ class WikiFactory {
 	 * @return boolean: true - added, false otherwise
 	 */
 	static public function addDomain( $city_id, $domain, $reason = '' ) {
-		global $wgWikicitiesReadOnly;
+		global $wgWikiFactoryReadOnly;
 
 		if ( ! self::isUsed() ) {
 			//Wikia::log( __METHOD__, "", "WikiFactory is not used." );
 			return false;
 		}
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -524,7 +524,7 @@ class WikiFactory {
 	 * values
 	 *
 	 * Note that this function will return false and not do any updates if
-	 * wgWikicitiesReadOnly is true.
+	 * wgWikiFactoryReadOnly is true.
 	 *
 	 * @access public
 	 * @author eloy@wikia
@@ -540,15 +540,15 @@ class WikiFactory {
 	 */
 	static public function setVarById( $cv_variable_id, $city_id, $value, $reason=null ) {
 
-		global $wgWikicitiesReadOnly;
+		global $wgWikiFactoryReadOnly;
 
 		if ( ! self::isUsed() ) {
 			//Wikia::log( __METHOD__, "", "WikiFactory is not used." );
 			return false;
 		}
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -1528,7 +1528,7 @@ class WikiFactory {
 	 * @return boolean status
 	 */
 	static public function clearCache( $city_id ) {
-		global $wgMemc,$wgWikicitiesReadOnly;
+		global $wgMemc,$wgWikiFactoryReadOnly;
 
 		if ( ! self::isUsed() ) {
 			//Wikia::log( __METHOD__, "", "WikiFactory is not used." );
@@ -1541,8 +1541,8 @@ class WikiFactory {
 
 		wfProfileIn( __METHOD__ );
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 		}
 		else {
 			/**
@@ -1820,14 +1820,14 @@ class WikiFactory {
 	 * @return string: HTML form
 	 */
 	static public function setPublicStatus( $city_public, $city_id, $reason = "" ) {
-		global $wgWikicitiesReadOnly;
+		global $wgWikiFactoryReadOnly;
 		if ( ! self::isUsed() ) {
 			//Wikia::log( __METHOD__, "", "WikiFactory is not used." );
 			return false;
 		}
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -2145,15 +2145,15 @@ class WikiFactory {
 	 * @return boolean    status of insert operation
 	 */
 	static public function log( $type, $msg, $city_id = false, $variable_id = null ) {
-		global $wgUser, $wgCityId, $wgWikicitiesReadOnly;
+		global $wgUser, $wgCityId, $wgWikiFactoryReadOnly;
 
 		if ( ! self::isUsed() ) {
 			//Wikia::log( __METHOD__, "", "WikiFactory is not used." );
 			return false;
 		}
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -2234,10 +2234,10 @@ class WikiFactory {
 	 * @return integer: city ID or null if not found
 	 */
 	static public function redirectDomains( $city_id, $new_city_id, $skip_domains = array() ) {
-		global $wgExternalArchiveDB,$wgWikicitiesReadOnly;
+		global $wgExternalArchiveDB,$wgWikiFactoryReadOnly;
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -2312,10 +2312,10 @@ class WikiFactory {
 	 * @return bool
 	 */
 	static public function copyToArchive( $city_id ) {
-		global $wgExternalArchiveDB, $wgWikicitiesReadOnly;
+		global $wgExternalArchiveDB, $wgWikiFactoryReadOnly;
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -2491,15 +2491,15 @@ class WikiFactory {
 	 * @return boolean, usually true when success
 	 */
 	static public function resetFlags( $city_id, $city_flags, $skip=false, $reason = '' ) {
-		global $wgWikicitiesReadOnly;
+		global $wgWikiFactoryReadOnly;
 
 		if ( ! self::isUsed() ) {
 			//Wikia::log( __METHOD__, "info", "WikiFactory is not used." );
 			return false;
 		}
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -2542,15 +2542,15 @@ class WikiFactory {
 	 * @return boolean, usually true when success
 	 */
 	static public function setFlags( $city_id, $city_flags, $skip=false, $reason = '' ) {
-		global $wgWikicitiesReadOnly;
+		global $wgWikiFactoryReadOnly;
 
 		if ( ! self::isUsed() ) {
 			//Wikia::log( __METHOD__, "info", "WikiFactory is not used." );
 			return false;
 		}
 
-		if ( $wgWikicitiesReadOnly ) {
-			//Wikia::log( __METHOD__, "", "wgWikicitiesReadOnly mode. Skipping update.");
+		if ( $wgWikiFactoryReadOnly ) {
+			//Wikia::log( __METHOD__, "", "wgWikiFactoryReadOnly mode. Skipping update.");
 			return false;
 		}
 
@@ -2592,7 +2592,7 @@ class WikiFactory {
 	 * @return flags
 	 */
 	static public function getFlags( $city_id ) {
-		global $wgWikicitiesReadOnly;
+		global $wgWikiFactoryReadOnly;
 
 		if ( !self::isUsed() ) {
 			//Wikia::log( __METHOD__, 'info', 'WikiFactory is not used.' );
