@@ -6,7 +6,7 @@
  * class is used in LocalSettings
  *
  * @author Krzysztof Krzyżaniak (eloy) <eloy@wikia-inc.com> for Wikia Inc.
- * @todo change use of mIsWikiaActive to a series of isClosed, isDeleted, etc. methods
+ * @todo change use of mIsWikiActive to a series of isClosed, isDeleted, etc. methods
  */
 
 ini_set( "include_path", "{$IP}:{$IP}/includes:{$IP}/languages:{$IP}/lib/vendor:.:" );
@@ -43,7 +43,7 @@ class WikiFactoryLoader {
 	// TODO: FIXME: Why is there a mWikiID and an mCityID?
 	public $mServerName, $mWikiID, $mCityHost, $mCityID, $mOldServerName;
 	public $mAlternativeDomainUsed, $mCityDB, $mDebug;
-	public $mDomain, $mVariables, $mIsWikiaActive, $mAlwaysFromDB;
+	public $mDomain, $mVariables, $mIsWikiActive, $mAlwaysFromDB;
 	public $mTimestamp, $mCommandLine;
 	public $mExpireDomainCacheTimeout = 86400; #--- 24 hours
 	public $mExpireValuesCacheTimeout = 86400; #--- 24 hours
@@ -124,7 +124,7 @@ class WikiFactoryLoader {
 		$this->mDBname = !empty( $wgWikiFactoryDB ) ? $wgWikiFactoryDB : "wikifactory";
 		$this->mDomain = array();
 		$this->mVariables = array();
-		$this->mIsWikiaActive = 0;
+		$this->mIsWikiActive = 0;
 		$this->mAlwaysFromDB = 0;
 		$this->mWikiID = 0;
 		$this->mDBhandler  = null;
@@ -300,7 +300,7 @@ class WikiFactoryLoader {
 
 					$this->mCityID = $oRow->city_id;
 					$this->mWikiID =  $oRow->city_id;
-					$this->mIsWikiaActive = $oRow->city_public;
+					$this->mIsWikiActive = $oRow->city_public;
 					$this->mCityHost = $host;
 					$this->mCityDB   = $oRow->city_dbname;
 					$this->mTimestamp = $oRow->city_factory_timestamp;
@@ -344,7 +344,7 @@ class WikiFactoryLoader {
 
 					if( $oRow->city_domain == $this->mServerName && $this->mServerName ) {
 						$this->mWikiID =  $oRow->city_id;
-						$this->mIsWikiaActive = $oRow->city_public;
+						$this->mIsWikiActive = $oRow->city_public;
 						$this->mCityHost = $host;
 						$this->mCityDB   = $oRow->city_dbname;
 						$this->mTimestamp = $oRow->city_factory_timestamp;
@@ -377,7 +377,7 @@ class WikiFactoryLoader {
 			 */
 			$this->mWikiID = $this->mDomain["id"];
 			$this->mCityHost = $this->mDomain["host"];
-			$this->mIsWikiaActive = $this->mDomain["active"];
+			$this->mIsWikiActive = $this->mDomain["active"];
 			$this->mTimestamp = isset( $this->mDomain["time"] ) ? $this->mDomain["time"] : null;
 			$this->mCityDB = isset( $this->mDomain[ "db" ] ) ? $this->mDomain[ "db" ] : false;
 		}
@@ -394,8 +394,8 @@ class WikiFactoryLoader {
 		/**
 		 * redirection to another url
 		 */
-		if( $this->mIsWikiaActive == 2 ) {
-			$this->debug( "city_id={$this->mWikiID};city_public={$this->mIsWikiaActive}), redirected to {$this->mCityHost}" );
+		if( $this->mIsWikiActive == 2 ) {
+			$this->debug( "city_id={$this->mWikiID};city_public={$this->mIsWikiActive}), redirected to {$this->mCityHost}" );
 			header( "X-Redirected-By-WF: 2" );
 			header( "Location: http://{$this->mCityHost}/", true, 301 );
 			wfProfileOut( __METHOD__ );
@@ -446,17 +446,17 @@ class WikiFactoryLoader {
 		 * Not_a_valid_Wikia
 		 * @todo the -1 status should probably be removed or defined more precisely
 		 */
-		if( empty( $this->mWikiID ) || $this->mIsWikiaActive == -1 ) {
+		if( empty( $this->mWikiID ) || $this->mIsWikiActive == -1 ) {
 			if( ! $this->mCommandLine ) {
-				global $wgNotAValidWikia;
-				$this->debug( "redirected to {$wgNotAValidWikia}, {$this->mWikiID} {$this->mIsWikiaActive}" );
-				if( $this->mIsWikiaActive < 0 ) {
+				global $wgNotAValidWiki;
+				$this->debug( "redirected to {$wgNotAValidWiki}, {$this->mWikiID} {$this->mIsWikiActive}" );
+				if( $this->mIsWikiActive < 0 ) {
 					header( "X-Redirected-By-WF: MarkedForClosing" );
 				}
 				else {
-					header( "X-Redirected-By-WF: NotAValidWikia" );
+					header( "X-Redirected-By-WF: NotAValidWiki" );
 				}
-				header("Location: $wgNotAValidWikia");
+				header("Location: $wgNotAValidWiki");
 				wfProfileOut( __METHOD__ );
 				exit(0);
 			}
@@ -466,9 +466,9 @@ class WikiFactoryLoader {
 		 * if wikia is disabled and is not Commandline mode we redirect it to
 		 * dump directory.
 		 */
-		if( empty( $this->mIsWikiaActive ) || $this->mIsWikiaActive == -2 /* spam */ ) {
+		if( empty( $this->mIsWikiActive ) || $this->mIsWikiActive == -2 /* spam */ ) {
 			if( ! $this->mCommandLine ) {
-				global $wgNotAValidWikia;
+				global $wgNotAValidWiki;
 				global $wgWikiFactoryCentralWiki;
 				if( $this->mCityDB ) {
 					$database = strtolower( $this->mCityDB );
@@ -479,9 +479,9 @@ class WikiFactoryLoader {
 					);
 				}
 				else {
-					$redirect = $wgNotAValidWikia;
+					$redirect = $wgNotAValidWiki;
 				}
-				$this->debug( "disabled and not commandline, redirected to {$redirect}, {$this->mWikiID} {$this->mIsWikiaActive}" );
+				$this->debug( "disabled and not commandline, redirected to {$redirect}, {$this->mWikiID} {$this->mIsWikiActive}" );
 				header( "X-Redirected-By-WF: Dump" );
 				header( "Location: $redirect" );
 				wfProfileOut( __METHOD__ );
