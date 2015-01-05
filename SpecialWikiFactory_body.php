@@ -81,21 +81,7 @@ class WikiFactoryPage extends SpecialPage {
 		$wgOut->setRobotpolicy( 'noindex,nofollow' );
 		$wgOut->setArticleRelated( false );
 
-		if ( in_array( strtolower($subpage), array( "metrics", "metrics/main", "metrics/monthly", "metrics/daily" ) ) ) {
-			$oAWCMetrics = new WikiMetrics();
-			$oAWCMetrics->show( $subpage );
-		}
-		elseif ( strpos( $subpage, "short.stats" ) === 0 ) {
-			$subpageOptions = explode( '/', $subpage );
-			$lang = isset( $subpageOptions[1] ) ? $subpageOptions[1] : null;
-			$wgOut->addHTML( $this->shortStats( $lang ) );
-		}
-		elseif ( strpos( $subpage, "long.stats" ) === 0 ) {
-			$subpageOptions = explode( '/', $subpage );
-			$lang = isset( $subpageOptions[1] ) ? $subpageOptions[1] : null;
-			$wgOut->addHTML( $this->longStats( $lang ) );
-		}
-		elseif ( strtolower($subpage) === "add.variable" ) {
+		if ( strtolower($subpage) === "add.variable" ) {
 			$varOverrides = array();
 			$wgOut->addHTML( $this->doAddVariableForm($varOverrides) ); // process the post (if relevant).
 			$wgOut->addHTML( $this->addVariableForm($varOverrides) ); // display the form
@@ -373,9 +359,6 @@ class WikiFactoryPage extends SpecialPage {
 				$fu = User::newFromId( $this->mWiki->city_founding_user );
 				$vars[ 'founder_username' ] = $fu->getName();
 				$vars[ 'founder_usermail' ] = $fu->getEmail();
-				$vars[ 'founder_metrics_url' ] = $vars[ 'wikiFactoryUrl' ] . "/Metrics?founder=" . rawurlencode( $fu->getName() );
-				$vars[ 'founder_usermail_metrics_url' ] = $vars[ 'wikiFactoryUrl' ] . "/Metrics?email=" . urlencode( $vars[ 'founder_usermail' ] );
-				$vars[ 'founder_email_metrics_url' ] = $vars[ 'wikiFactoryUrl' ] . "/Metrics?email=" . urlencode( $vars[ 'founder_email' ] );
 			} else
 			{	#dont know who made the wiki, so dont try to do lookups
 				$vars[ 'founder_username' ] = null;
@@ -747,70 +730,6 @@ class WikiFactoryPage extends SpecialPage {
 			);
 			return Xml::element( 'a', $attribs, $text );
 		}
-	}
-
-	private function shortStats( $lang = null ) {
-		return $this->doStats( 90, $lang );
-	}
-	private function longStats( $lang = null ) {
-		return $this->doStats( null, $lang );
-	}
-
-	private function doStats( $days = null, $lang = null ) {
-		global $wgOut;
-
-		$where = null;
-		if( !empty($days) ) {
-			$ymd = gmdate('Y-m-d', strtotime("{$days} days ago"));
-			$where = array("city_created > '{$ymd}'");
-		}
-
-		if ( !empty( $lang ) ) {
-			$where['city_lang'] = $lang;
-		}
-
-		$dbr = WikiFactory::db( DB_SLAVE );
-		$res = $dbr->select(
-			array( "city_list" ),
-			array(
-				"date(city_created) as date",
-				"city_public",
-				"count(*) as count"
-			),
-			$where,
-			__METHOD__,
-			array(
-				  "GROUP BY" => "date(city_created), city_public",
-				  "ORDER BY" => "date(city_created) desc"
-			)
-		);
-		$stats = array();
-		while( $row = $dbr->fetchObject( $res ) ) {
-			if( !isset( $stats[ $row->date ] ) ){
-				$stats[ $row->date ] = (object) null;
-			}
-			$stats[ $row->date ]->total += $row->count;
-			switch( $row->city_public ) {
-				case 1:
-					$stats[ $row->date ]->active += $row->count;
-					break;
-				case 0:
-					$stats[ $row->date ]->disabled += $row->count;
-					break;
-				case 2:
-					$stats[ $row->date ]->redirected += $row->count;
-					break;
-			}
-		}
-		$dbr->freeResult( $res );
-
-		$wgOut->setPageTitle( strtoupper( $lang ) . ' Wikis created daily' );
-
-		$Tmpl = new EasyTemplate( dirname( __FILE__ ) . "/templates/" );
-		$Tmpl->set( "stats", $stats );
-		$Tmpl->set( "days", $days );
-
-		return $Tmpl->render( "shortstats" );
 	}
 
 	/**

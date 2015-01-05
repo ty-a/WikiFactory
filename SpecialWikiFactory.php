@@ -24,6 +24,11 @@ $wgExtensionCredits['specialpage'][] = array(
 
 $dir = dirname( __FILE__ );
 /**
+ * Whether or not to show Phalanx links in WikiFactory
+ */
+$wgEnablePhalanx = false;
+
+/**
  * messages file
  */
 $wgExtensionMessagesFiles["WikiFactory"] =  $dir . '/SpecialWikiFactory.i18n.php';
@@ -32,16 +37,6 @@ $wgExtensionMessagesFiles["WikiFactory"] =  $dir . '/SpecialWikiFactory.i18n.php
  * helper file
  */
 require_once( $dir . '/SpecialWikiFactory_ajax.php' );
-
-/**
- * metrics
- */
- 
-require_once( $dir . '/Metrics/SpecialAWCMetrics.php' );
-$wgAutoloadClasses['NewWikisGraphSpecialPageController'] = $dir . '/Metrics/SpecialNewWikisGraph.php';
-$wgSpecialPages['NewWikisGraph'] = 'NewWikisGraphSpecialPageController';
-$wgAutoloadClasses['SpecialNewWikisGraphOutput'] = $dir . '/Metrics/output/SpecialNewWikisGraphOutput.class.php';
-$wgAutoloadClasses['SpecialNewWikisGraphSourceDatabase'] = $dir . '/Metrics/SpecialNewWikisGraphSourceDatabase.class.php';
  
 /**
  * tags
@@ -53,19 +48,10 @@ require_once( $dir . '/Tags/WikiFactoryTagsQuery.php' );
  * permissions
  */
 $wgAvailableRights[] = 'wikifactory';
-$wgGroupPermissions['util']['wikifactory'] = true;
-//$wgAvailableRights[] = 'wikifactorymetrics';
-//$wgGroupPermissions['staff']['wikifactorymetrics'] = true;
+$wgGroupPermissions['staff']['wikifactory'] = true;
 
 $wgAutoloadClasses['WikiFactoryPage'] = __DIR__ . '/SpecialWikiFactory_body.php';
 $wgSpecialPages['WikiFactory'] = 'WikiFactoryPage';
 
 $wgAutoloadClasses[ "CloseWikiPage" ] = $dir. "/Close/SpecialCloseWiki_body.php";
 $wgSpecialPages[ "CloseWiki" ] = "CloseWikiPage";
-
-$wgResourceModules['ext.WikiFactory.Metrics'] = array(
-	'scripts' => 'Metrics/js/jquery.dataTables.min.js',
-	//'styles' => '',
-	
-	'localBasePath' => __DIR__
-);

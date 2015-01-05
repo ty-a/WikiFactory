@@ -62,61 +62,6 @@ $messages['en'] = array(
 	'wikifactory-button-saveparse' => "Parse &amp; Save changes",
 	'wikifactory-button-save' => 'Save changes',
 	'wikifactory-public-status-change-default-reason' => 'Status changed from the Domains tab.',
-// metrics
-	"awc-metrics-language-top-list" => "de,en,es,fr,it,ja,pl,pt,pt-br,zh",
-	"awc-metrics-wikis" => "Display Wikis",
-	"awc-metrics-select" => "Show Wikis:",
-	"awc-metrics-by-language" => "by language:",
-	"awc-metrics-category" => "and category:",
-	"awc-metrics-all" => "all Wikis",
-	"awc-metrics-all-languages" => "all languages",
-	"awc-metrics-search" => "Search options:",
-	"awc-metrics-one-week" => "created < 1 week ago",
-	"awc-metrics-two-weeks" => "created < 2 weeks ago",
-	"awc-metrics-three-weeks" => "created < 3 weeks ago",
-	"awc-metrics-one-months" => "created < 1 month ago",
-	"awc-metrics-two-months" => "created < 2 months ago",
-	"awc-metrics-three-months" => "created < 3 months ago",
-	"awc-metrics-half-year" => "created < 6 months ago",
-	"awc-metrics-by-email" => " or (user email):",
-	"awc-metrics-by-user" => "found by (user name):",
-	"awc-metrics-by-dbname" => "where DB names contain:",
-	"awc-metrics-by-title" => " and titles starting at:",
-	"awc-metrics-by-domains" => " and domains contain:",
-	"awc-metrics-not-found" => "No Wikis found",
-	"awc-metrics-nbr-result" => "Results:",
-	"awc-metrics-created-between" => "created between $1 (YYYY/MM/DD) and $2 (YYYY/MM/DD)",
-	"awc-metrics-wikians" => "Editors<br />(>10 edits)",
-	"awc-metrics-articles" => "Articles",
-	"awc-metrics-articles-per-day" => "Articles<br />(avg. per day)",
-	"awc-metrics-revisions-per-page" => "Revisions<br />(avg. per page)",
-	"awc-metrics-article-avg-size" => "Avg. art.<br />size",
-	"awc-metrics-edits" => "Edits",
-	"awc-metrics-db-size" => "DB size",
-	"awc-metrics-images" => "Images",
-	"awc-metrics-all-users" => "Reg.<br />users",
-	"awc-metrics-all-users-edit-main-ns" => "Reg. users<br />(Content NS)",
-	"awc-metrics-pageviews" => "Page<br />views",
-	"awc-metrics-statistics" => "Statistics (average for all months)",
-	"awc-metrics-close" => "Close",
-	"awc-metrics-close-action" => "close",
-	"awc-metrics-active" => "active",
-	"awc-metrics-closed" => "closed",
-	"awc-metrics-redirected" => "closed and redirected",
-	"awc-metrics-removed" => "removed",
-	"awc-metrics-hubs" => "New wikis (monthly)",
-	"awc-metrics-news-day" => "New wikis (daily)",
-	"awc-metrics-sum-month" => "Count (per month)",
-	"awc-metrics-sum-day" => "Count (per day)",
-	"awc-metrics-fewer-than" => "that has fewer than {{PLURAL:$1|$1 article|$1 articles}},",
-	"awc-metrics-edits-label" => "{{PLURAL:$1|$1 edit|$1 edits}} in $2,",
-	"awc-metrics-this-month" => "this month",
-	"awc-metrics-last-month" => "the last {{PLURAL:$1|month|$1 months}}",
-	"awc-metrics-pageviews-label" => "and {{PLURAL:$1|$1 pageview|$1 pageviews}} in the last {{PLURAL:$2|day|$2 days}}",
-	"awc-metrics-close-listed" => "Close all listed",
-	"awc-metrics-close-checked" => "Close checked",
-	"awc-metrics-exact-match" => "exact match",
-	"awc-metrics-recordspager" => 'Showing \'\'\'$1\'\'\' to \'\'\'$2\'\'\' of \'\'\'$3\'\'\' records', // @todo FIXME: Needs plural support (in JavaScript).
 // closed Wiki
 	"closed-wiki" => "Closed Wiki",
 	"closed-wiki-info" => "This wiki has been closed",
@@ -136,13 +81,6 @@ $messages['en'] = array(
 	"closed-confirm-btn" => "Confirm close",
 	"closed-redirect-alert" => "Please put new URL of redirect!",
 	"closed-reason" => "Reason:",
-
-	# new wikis graph metrics
-	'newwikisgraph' => 'New Wikis Graph',
-	'newwikisgraph-report-title' => 'wiki creations by day',
-	'newwikisgraph-wikis-created' => "wikis created",
-	'newwikisgraph-param-all' => 'All',
-	'newwikisgraph-param-other' => 'Other',
 );
 
 /** Message documentation (Message documentation)
@@ -186,37 +124,10 @@ $messages['qqq'] = array(
 	'closewiki-unknown' => '{{Identical|Unknown}}',
 	'wikifactory-button-save' => '{{Identical|Save changes}}',
 	'wikifactory-public-status-change-default-reason' => 'WikiFactory is a staff tool that allows Wikia to manage per-wiki settings across their network. The "public status" setting determines whether a wiki is available for users or closed and assigned for removal. Staff members usually justify a change of the status of a wiki by filling in the "Reason" field in the form. If no reason is provided, the wikifactory-public-status-change-default-reason is used automatically so it can be deduced where the change had been requested from.',
-	'awc-metrics-all' => '{{Identical|All wikis}}',
-	'awc-metrics-all-languages' => '{{Identical|All languages}}',
-	'awc-metrics-search' => '{{Identical|Search options}}',
-	'awc-metrics-nbr-result' => '{{Identical|Result}}',
-	'awc-metrics-articles' => '{{Identical|Article}}',
-	'awc-metrics-edits' => '{{Identical|Edit}}',
-	'awc-metrics-images' => '{{Identical|Image}}',
-	'awc-metrics-close' => '{{Identical|Close}}',
-	'awc-metrics-close-action' => '{{Identical|Close}}',
-	'awc-metrics-active' => '{{Identical|Active}}',
-	'awc-metrics-closed' => '{{Identical|Closed}}',
-	'awc-metrics-removed' => '{{Identical|Removed}}',
-	'awc-metrics-fewer-than' => 'Form text. Explains that the script will look for values fewer than the numeric input data. http://images.wikia.com/mixtestwiki/images/9/90/2013-01-TWN_WikiFactory_Metrics.png',
-	'awc-metrics-edits-label' => 'Label for input box. User puts in a number next to this label to match the number of edits the tool will use as a maximum threshold. For a visual explanation, please see: http://images.wikia.com/mixtestwiki/images/9/90/2013-01-TWN_WikiFactory_Metrics.png',
-	'awc-metrics-pageviews-label' => 'Form label. For a visual explanation: http://images.wikia.com/mixtestwiki/images/9/90/2013-01-TWN_WikiFactory_Metrics.png .
-Parameters:
-* $1 is the number of pageviews the tool will set as the maximum number of pageviews.
-* $2 is the number of days the tool will set at the maximum timeframe.
-
-The fact that these are maximum values is explained by [[Wikia:Awc-metrics-fewer-than]].',
-	'awc-metrics-exact-match' => '{{Identical|Exact match}}',
-	'awc-metrics-recordspager' => 'Recordspager message. This message cannot support PLURAL for now, because it is used in JavaScript. Parameters:
-* $1 is the number of the first displayed record
-* $2 is the number of the first displayed record
-* $3 is the total number of results available (this can be more than the number of records displayed)',
 	'closed-wiki-dump-noexists' => 'Links to three files. The first one contains the contents of all pages on the wiki at their latest revisions. The second one containes the contents of all pages on the wiki and the entire revision history of those. The third one contains all the images that were added to the wiki.',
 	'closed-delete-images' => '{{Identical|Delete image}}',
 	'closed-hide-dumps' => 'The exact meaning is: "Hide database dump and hide image dump", i.e. both are dumps.',
 	'closed-reason' => '{{Identical|Reason}}',
-	'newwikisgraph' => 'Title of a special page',
-	'newwikisgraph-param-all' => '{{Identical|All}}',
 );
 
 /** Afrikaans (Afrikaans)
