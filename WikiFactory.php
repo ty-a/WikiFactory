@@ -1607,7 +1607,7 @@ class WikiFactory {
 	/**
 	 * getGroups
 	 *
-	 * get groups for variables, return only non-empty groups
+	 * get groups for variables
 	 *
 	 * @static
 	 * @access public
@@ -1629,7 +1629,7 @@ class WikiFactory {
 		$oRes = $dbr->select(
 			array( "city_variables_pool", "city_variables_groups" ), /*from*/
 			array( "cv_group_id", "cv_group_name" ), /*what*/
-			array( "cv_group_id in (select cv_variable_group from city_variables_pool)"	), /*where*/
+			array(), //array( "cv_group_id in (select cv_variable_group from city_variables_pool)"	), /*where*/
 			__METHOD__
 		);
 
@@ -3174,5 +3174,69 @@ class WikiFactory {
 		}
 		$wgMemc->prefetch($keys);
 	}
-
+	
+	/**
+	 * doesGroupExist
+	 *
+	 * Checks whether a group exists
+	 *
+	 * @static
+	 * @access public
+	 * @author TyA
+	 *
+	 * @return boolean: based on success
+	 */
+	static public function doesGroupExist( $group_name ) {
+		$dbr = self::db( DB_SLAVE );
+		
+		$res = $dbr->select(
+			"city_variables_groups",
+			"cv_group_name",
+			array(
+				"cv_group_name" => $group_name
+			)
+		);
+		if(empty($res->fetchRow()["cv_group_name"])) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+	
+	/**
+	 * createGroup
+	 *
+	 * creates a group for variables
+	 *
+	 * @static
+	 * @access public
+	 * @author TyA
+	 *
+	 * @return boolean: based on success
+	 */
+	static public function createGroup( $group_name ) {
+		$dbw = self::db( DB_MASTER );
+		
+		$dbw->begin();
+		$success;
+		try {
+			// Don't re-check validity of variables, they are a precondition.  Do the queries here.
+			$dbw->insert(
+				"city_variables_groups",
+				array(
+					"cv_group_name" => $group_name,
+				),
+				__METHOD__
+			);
+			self::log(self::LOG_VARIABLE, "Group \"$group_name\" created");
+			$dbw->commit();
+			$success = true;
+		} catch ( DBQueryError $e ) {
+			$dbw->rollback();
+			$success = false;
+			throw $e;
+		}
+		
+		return $success;
+	}
 };

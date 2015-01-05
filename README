@@ -7,9 +7,6 @@ First download the code and place it in your extensions directory. Inside the do
 
 Second you'll need to create your WikiFactory database. There is schema for the database in the sql folder. 
 
-Third you'll need to create a variable group. I'll eventually add a way to do this with the GUI. An example SQL query is below
-INSERT city_variables_groups (cv_group_name) VALUES ('wg');
-
 Now you'll need to start adding your wikis to the city_list and the city_domains tables. Example SQL queries are below
 INSERT INTO city_list (city_dbname,city_sitename,city_url,city_created,city_founding_user,city_title,city_founding_email,city_lang,city_umbrella,city_founding_ip) VALUES ('metawiki','Meta Wiki','meta.faceyspacies.com',
 '2015-01-01 03:49:28','1','Meta Wiki','tyler@faceyspacies.com','en','meta.faceyspacies.com','127.0.0.1');
@@ -30,7 +27,9 @@ $wgNotAValidWiki = "http://meta.faceyspacies.com/wiki/Invalid_Wiki";
 require_once( $IP . "/extensions/WikiFactory/SpecialWikiFactory.php" );
 " to your LocalSettings/CommonSettings.php file for your main wiki. This is the extension that will allow you to manage WikiFactory. 
 
-On the wiki, navigate to [[Special:WikiFactory]]. Note that you will have to have the "wikifactory" right, which is given to the "util" group by default. There will be an option to "add a new variable", click on that as we're going to start adding variables for WikiFactory to manage. 
+On the wiki, navigate to [[Special:WikiFactory]]. Note that you will have to have the "wikifactory" right, which is given to the "util" group by default. There will be an option to "add a new variable group", click on that to create a group for WikiFactory variables. Once you've created your group(s), click the back to WikiFactory button. 
+
+There will be an option to "add a new variable", click on that as we're going to start adding variables for WikiFactory to manage. 
 
 The form is rather simple. The name of the variable is what it will be managing. For example "wgArticlePath" will manage $wgArticlePath (be sure not to include the $!). Select the type, for most of them they are strings. In the "pick a group" section, you will see the group that you made before. Set the access-level appropriately. I don't know how the "editable by user" works and I don't know what the Is unique means either. Leave a description. Don't worry if you mess it up, all but the type can be changed later.
 

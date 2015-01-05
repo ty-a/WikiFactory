@@ -100,6 +100,11 @@ class WikiFactoryPage extends SpecialPage {
 			$wgOut->addHTML( $this->doAddVariableForm($varOverrides) ); // process the post (if relevant).
 			$wgOut->addHTML( $this->addVariableForm($varOverrides) ); // display the form
 		}
+		elseif ( strtolower( $subpage ) == "add.variable.group" ) {
+			$groupName = "";
+			$wgOut->addHTML( $this->doAddGroupForm( $groupName ) );
+			$wgOut->addHTML( $this->addGroupForm( $groupName ) );
+		}
 		else {
 			
 			$subpage = ( $subpage == "/" ) ? null : $subpage;
@@ -834,6 +839,29 @@ class WikiFactoryPage extends SpecialPage {
 
 		return $oTmpl->render( "add-variable" );
 	}
+	
+	/**
+	 * Quick form for adding a variable to WikiFactory
+	 *
+	 * @author TyA
+	 * @access private
+	 *
+	 * @param groupName string - The name of the group, default ""
+	 *
+	 * @return HTML to be rendered.
+	 */
+	private function addGroupForm($groupName = "") {
+		$oTmpl = new EasyTemplate( dirname( __FILE__ ) . "/templates" );
+		
+		$vars = array(
+			"title"         => $this->mTitle,
+			"group_name"    => $groupName
+		);
+		
+		$oTmpl->set_vars( $vars );
+		
+		return $oTmpl->render( "add-variable-group" );
+	}
 
 	/**
 	 * Quick form for choosing which variable to change.
@@ -932,6 +960,54 @@ class WikiFactoryPage extends SpecialPage {
 			}
 		}
 		return $html;
+	}
+	
+	/**
+	 * If there was a post to the add variable group form, this will process it.
+	 *
+	 * @author TyA
+	 * @access private
+	 *
+	 * @param group_name string: The name of the group to add
+	 *
+	 * @return any additional HTML that should be rendered as a result of the form post.
+	 */
+	private function doAddGroupForm( &$group_name ) {
+		global $wgRequest;
+		$html = "";
+		
+		if( $wgRequest->wasPosted() ) {
+			$err = "";
+			
+			$group_name = $wgRequest->getval( "group_name" );
+			
+			if( $group_name == "" ) {
+				$err .= "<li>Please enter a group name</li>\n";
+			}
+			
+			if( WikiFactory::doesGroupExist( $group_name ) ) {
+				$err .= "<li>" . $group_name . " already exists!</li>\n";
+			}
+			
+			if( $err == "" ) {
+				$success = WikiFactory::createGroup( $group_name );
+				if( $success ) {
+					$html .= "<div style='border:1px #0f0 solid;background-color:#afa;padding:5px'><strong>$group_name</strong> successfully added to WikiFactory.</div>";
+				} else {
+					$html .= "<div style='border:1px #f00 solid;background-color:#faa;padding:5px'>";
+					$html .= "<strong>ERROR: There was a database error while trying to create the group.  Please see the logs for more info.</strong>";
+					$html .= "</div>";
+				}
+			} else {
+				$html .= "<div style='border:1px #f00 solid;background-color:#faa;padding:5px'>";
+				$html .= "<strong>ERROR: Unable to add group!</strong>";
+				$html .= "<ul>\n$err</ul>\n";
+				$html .= "</div>";
+			}
+		}
+		
+		return $html;
+	
 	}
 
 	private function doAddToWebmasterTools () {

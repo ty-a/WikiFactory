@@ -30,20 +30,20 @@ table.TablePager { border: 1px solid gray;}
 <ul>
 	<li>
 		You can use this page by requesting
-		<strong><?php echo $title->getFullUrl() ?>/wikia-name</strong>
+		<strong><?php echo $title->getFullUrl() ?>/wiki-name</strong>
 	</li>
 	<li>
-		You can use "shortcuts" for wikia address (<strong>.wikia.com</strong>
-		will be added automaticly). For example food means food.wikia.com
+		You can use "shortcuts" for wiki addresses (<strong><?php echo $GLOBALS["wgWikiFactoryDomain"]?></strong>
+		will be added automaticly). For example food means food.<?php echo $GLOBALS["wgWikiFactoryDomain"]?>
 	</li>
 	<li>
 		You can <a href="<?php echo $title->getFullUrl() ?>/add.variable"><strong>add a new variable</strong></a> to be managed by WikiFactory
 	</li>
 	<li>
-		You can start typing the beginning of domain name into input field below
+		You can <a href="<?php echo $title->getFullUrl() ?>/add.variable.group"><strong>add a new variable group</strong></a> to WikiFactory
 	</li>
 	<li>
-		You can use filters in the <a href="<?php echo $title->getFullUrl() ?>/metrics"><strong>metrics interface</strong></a>
+		You can start typing the beginning of domain name into input field above
 	</li>
 </ul>
 <!-- e:short info -->
