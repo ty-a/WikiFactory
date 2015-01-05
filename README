@@ -1,0 +1,46 @@
+WikiFactory
+
+WikiFactory is an extension written by Wikia to allow easy configuration of a WikiFarm. 
+
+Installation
+First download the code and place it in your extensions directory. Inside the download is a "dependencies" folder. Copy those dependencies into your extensions folder. These are files from Wikia's installation that are required for WikiFactory to run. 
+
+Second you'll need to create your WikiFactory database. There is schema for the database in the sql folder. 
+
+Third you'll need to create a variable group. I'll eventually add a way to do this with the GUI. An example SQL query is below
+INSERT city_variables_groups (cv_group_name) VALUES ('wg');
+
+Now you'll need to start adding your wikis to the city_list and the city_domains tables. Example SQL queries are below
+INSERT INTO city_list (city_dbname,city_sitename,city_url,city_created,city_founding_user,city_title,city_founding_email,city_lang,city_umbrella,city_founding_ip) VALUES ('metawiki','Meta Wiki','meta.faceyspacies.com',
+'2015-01-01 03:49:28','1','Meta Wiki','tyler@faceyspacies.com','en','meta.faceyspacies.com','127.0.0.1');
+
+INSERT INTO city_domains (city_id, city_domain) VALUES (1, "meta.faceyspacies.com");
+
+the city_id in the city_domains table is set in the city_list table when creating an entry. If you don't know it (i.e. from just keeping track, some list) you can use this query to find it
+SELECT city_id FROM city_list WHERE city_dbname = "metawiki";
+
+Go ahead and add 
+"
+// Wikifactory configuration
+$wgExternalSharedDB = "wikifactory";
+$wgWikiFactoryCacheType = CACHE_MEMCACHED;
+$wgNotAValidWikia = "http://meta.faceyspacies.com/wiki/Invalid_Wiki";
+
+require_once( $IP . "/extensions/WikiFactory/SpecialWikiFactory.php" );
+" to your LocalSettings/CommonSettings.php file for your main wiki. This is the extension that will allow you to manage WikiFactory. 
+
+On the wiki, navigate to [[Special:WikiFactory]]. Note that you will have to have the "wikifactory" right, which is given to the "util" group by default. There will be an option to "add a new variable", click on that as we're going to start adding variables for WikiFactory to manage. 
+
+The form is rather simple. The name of the variable is what it will be managing. For example "wgArticlePath" will manage $wgArticlePath (be sure not to include the $!). Select the type, for most of them they are strings. In the "pick a group" section, you will see the group that you made before. Set the access-level appropriately. I don't know how the "editable by user" works and I don't know what the Is unique means either. Leave a description. Don't worry if you mess it up, all but the type can be changed later.
+
+After you have added your variables, head back to the main form and type in one of your wiki's names in the box and hit the "get configuration" box. In the default variables tab, you will see the variables you have defined. Go ahead and click them and set their values. Once you have entered the value, hit the "Parse & Save changes" button. Once you have your variables loaded, you're ready to have WikiFactory load them for you. 
+
+In your CommonSettings.php, add the following lines
+require_once( $IP . '/extensions/WikiFactory/Loader/WikiFactoryLoader.php');
+// Loads Wikifactory and returns our $wgCityId
+$WFL = new WikiFactoryLoader();
+$wgCityId = $WFL->execute();
+
+The WikiFactoryLoader is what actually loads your variables from the WikiFactory database and assigns them as their global variables. It also returns your cityId, so store that if you need it. 
+
+And with that, you are good to go!
